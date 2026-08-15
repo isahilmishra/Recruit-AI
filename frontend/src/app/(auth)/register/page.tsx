@@ -59,7 +59,7 @@ export default function RegisterPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="role">I am a...</Label>
-              <Select value={role} onValueChange={setRole}>
+              <Select value={role} onValueChange={(details: any) => setRole(details.value || "CANDIDATE")}>
                 <SelectTrigger id="role">
                   <SelectValue placeholder="Select a role" />
                 </SelectTrigger>

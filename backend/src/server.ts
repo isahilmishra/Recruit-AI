@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import healthRoutes from './routes/health.routes';
+import authRoutes from './routes/auth.routes';
 import { errorHandler } from './middleware/errorHandler';
 
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(morgan('dev'));
 
 // Routes
 app.use('/api/health', healthRoutes);
+app.use('/api/auth', authRoutes);
 
 // Error Handling
 app.use(errorHandler);

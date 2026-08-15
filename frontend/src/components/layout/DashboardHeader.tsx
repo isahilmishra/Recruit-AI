@@ -9,6 +9,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuGroup,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -37,17 +38,19 @@ export function DashboardHeader() {
               <AvatarFallback>U</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56" align="end" forceMount>
-            <DropdownMenuLabel className="font-normal">
-              <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none text-foreground">Demo User</p>
-                <p className="text-xs leading-none text-muted-foreground">user@recruitai.test</p>
-              </div>
-            </DropdownMenuLabel>
+          <DropdownMenuContent className="w-56" align="end">
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="font-normal">
+                <div className="flex flex-col space-y-1">
+                  <p className="text-sm font-medium leading-none text-foreground">Demo User</p>
+                  <p className="text-xs leading-none text-muted-foreground">user@recruitai.test</p>
+                </div>
+              </DropdownMenuLabel>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <Link href="/" className="block w-full">
-              <DropdownMenuItem className="cursor-pointer w-full">Log out</DropdownMenuItem>
-            </Link>
+            <DropdownMenuItem className="cursor-pointer p-0">
+              <Link href="/" className="w-full h-full block px-2 py-1.5">Log out</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
