@@ -1,8 +1,16 @@
+"use client";
+
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase, Clock, CheckCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ResumeUploader } from "@/components/candidate/ResumeUploader";
+import { ParsedResumeView } from "@/components/candidate/ParsedResumeView";
+import { MatchEvaluator } from "@/components/candidate/MatchEvaluator";
+import { MatchScoreView } from "@/components/candidate/MatchScoreView";
 
 export default function CandidateDashboardPage() {
+  const [parsedData, setParsedData] = useState<any>(null);
+  const [matchData, setMatchData] = useState<any>(null);
   return (
     <div className="space-y-6">
       <div>
@@ -52,13 +60,38 @@ export default function CandidateDashboardPage() {
         <Card className="bg-card/50 backdrop-blur-sm border-border">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>My Resume</CardTitle>
-            <Button variant="outline" size="sm">Update Resume</Button>
           </CardHeader>
           <CardContent>
-            <div className="text-sm text-muted-foreground">Upload your resume to let AI parse your profile and match you with relevant jobs.</div>
-            <div className="mt-4 p-4 border rounded-md border-dashed border-border flex flex-col items-center justify-center text-muted-foreground bg-background/50">
-              No resume uploaded yet.
-            </div>
+            {parsedData ? (
+              <>
+                <ParsedResumeView 
+                  data={parsedData} 
+                  onReset={() => {
+                    setParsedData(null);
+                    setMatchData(null);
+                  }} 
+                />
+                
+                {matchData ? (
+                  <MatchScoreView 
+                    data={matchData} 
+                    onReset={() => setMatchData(null)} 
+                  />
+                ) : (
+                  <MatchEvaluator 
+                    resumeData={parsedData} 
+                    onMatchSuccess={setMatchData} 
+                  />
+                )}
+              </>
+            ) : (
+              <>
+                <div className="text-sm text-muted-foreground mb-4">
+                  Upload your resume to let AI parse your profile and match you with relevant jobs.
+                </div>
+                <ResumeUploader onParseSuccess={setParsedData} />
+              </>
+            )}
           </CardContent>
         </Card>
       </div>

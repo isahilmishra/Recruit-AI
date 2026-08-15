@@ -112,3 +112,20 @@ export async function generateEmail(prompt: string, candidateName: string) {
 
   return response.text;
 }
+
+export async function evaluateCandidateMatch(resumeData: any, jobText: string) {
+  const response = await getAi().models.generateContent({
+    model,
+    contents: `Compare the following candidate resume data against the job description and evaluate their fit. Return valid JSON exactly matching this schema: { overallScore: number (0-100), skillScore: number (0-100), experienceScore: number (0-100), matchedSkills: string[], missingSkills: string[], summary: string (2-3 sentences explaining the fit) }.\n\nCandidate Resume Data:\n${JSON.stringify(resumeData)}\n\nJob Description:\n${jobText}`,
+    config: {
+      temperature: 0.2,
+    },
+  });
+
+  if (!response.text) {
+    throw new Error("Failed to evaluate candidate match.");
+  }
+  
+  const cleanedText = response.text.replace(/```json/gi, '').replace(/```/gi, '').trim();
+  return JSON.parse(cleanedText);
+}

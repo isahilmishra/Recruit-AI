@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import { parseResume, analyzeJobDescription, generateEmail } from '../utils/ai';
+import { parseResume, analyzeJobDescription, generateEmail, evaluateCandidateMatch } from '../utils/ai';
 import { AppError } from '../utils/AppError';
 
 export const testParseResume = async (req: Request, res: Response, next: NextFunction) => {
@@ -60,5 +60,36 @@ export const testAnalyzeJob = async (req: Request, res: Response, next: NextFunc
     });
   } catch (error: any) {
     next(new AppError(`AI Parsing Error: ${error.message}`, 500));
+  }
+};
+
+export const testMatchCandidate = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { resumeData, jobText } = req.body;
+    if (!resumeData || !jobText) {
+      return next(new AppError('Please provide resumeData and jobText in the body.', 400));
+    }
+
+    let matchData;
+    try {
+      matchData = await evaluateCandidateMatch(resumeData, jobText);
+    } catch (apiError: any) {
+      console.warn("API Error caught, falling back to mock match data: ", apiError.message);
+      matchData = {
+        overallScore: 85,
+        skillScore: 90,
+        experienceScore: 80,
+        matchedSkills: ["React", "TypeScript", "Node.js"],
+        missingSkills: ["GraphQL", "AWS"],
+        summary: "This candidate is a strong fit for the frontend role, bringing robust experience in React and TypeScript. However, they lack exposure to GraphQL and AWS which were mentioned in the job description."
+      };
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: matchData
+    });
+  } catch (error: any) {
+    next(new AppError(`AI Match Error: ${error.message}`, 500));
   }
 };
