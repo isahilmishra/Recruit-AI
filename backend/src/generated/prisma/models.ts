@@ -8,12 +8,12 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User.js'
-export type * from './models/RecruiterProfile.js'
-export type * from './models/CandidateProfile.js'
-export type * from './models/Resume.js'
-export type * from './models/Job.js'
-export type * from './models/Application.js'
-export type * from './models/CandidateEvaluation.js'
-export type * from './models/ApplicationStatusHistory.js'
-export type * from './commonInputTypes.js'
+export type * from './models/User'
+export type * from './models/RecruiterProfile'
+export type * from './models/CandidateProfile'
+export type * from './models/Resume'
+export type * from './models/Job'
+export type * from './models/Application'
+export type * from './models/CandidateEvaluation'
+export type * from './models/ApplicationStatusHistory'
+export type * from './commonInputTypes'

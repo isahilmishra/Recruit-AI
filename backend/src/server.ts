@@ -8,6 +8,8 @@ dotenv.config();
 import healthRoutes from './routes/health.routes';
 import authRoutes from './routes/auth.routes';
 import aiRoutes from './routes/ai.routes';
+import candidateRoutes from './routes/candidate.routes';
+import recruiterRoutes from './routes/recruiter.routes';
 import { errorHandler } from './middleware/errorHandler';
 
 
@@ -24,6 +26,8 @@ app.use(morgan('dev'));
 app.use('/api/health', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/candidates', candidateRoutes);
+app.use('/api/recruiters', recruiterRoutes);
 
 // Error Handling
 app.use(errorHandler);

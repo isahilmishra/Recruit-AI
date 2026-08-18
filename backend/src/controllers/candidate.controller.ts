@@ -1,0 +1,195 @@
+import { Request, Response, NextFunction } from 'express';
+import { prisma } from '../utils/prisma';
+import { AppError } from '../middleware/errorHandler';
+import { parseResume, evaluateCandidateMatch } from '../utils/ai';
+import pdfParse from 'pdf-parse';
+
+export class CandidateController {
+  static async uploadResume(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user?.userId;
+      if (!userId) throw new AppError('Unauthorized', 401);
+
+      let rawText = '';
+
+      if (req.file) {
+        // Handle PDF upload
+        if (req.file.mimetype === 'application/pdf') {
+          const pdfData = await pdfParse(req.file.buffer);
+          rawText = pdfData.text;
+        } else {
+          // If they upload a txt file or similar (fallback)
+          rawText = req.file.buffer.toString('utf-8');
+        }
+      } else if (req.body.resumeText) {
+        // Fallback to text if frontend sends text instead of file
+        rawText = req.body.resumeText;
+      }
+
+      if (!rawText || rawText.trim().length === 0) {
+        throw new AppError('Resume file or text is required', 400);
+      }
+
+      // Parse with AI
+      const parsedData = await parseResume(rawText);
+
+      // Find the candidate profile for this user
+      const candidateProfile = await prisma.candidateProfile.findUnique({
+        where: { userId }
+      });
+
+      if (!candidateProfile) {
+        throw new AppError('Candidate profile not found', 404);
+      }
+
+      // Save to Database
+      const resume = await prisma.resume.create({
+        data: {
+          candidateId: candidateProfile.id,
+          fileName: req.file ? req.file.originalname : 'Uploaded_Resume.txt',
+          fileUrl: 'local',
+          extractedText: rawText,
+          parsedData: parsedData as any,
+          processingStatus: 'COMPLETED'
+        }
+      });
+
+      // Update candidate profile with extracted skills if needed
+      await prisma.candidateProfile.update({
+        where: { id: candidateProfile.id },
+        data: {
+          skills: parsedData.skills || [],
+          experience: parsedData.experience as any,
+          education: parsedData.education as any
+        }
+      });
+
+      res.status(201).json({
+        status: 'success',
+        data: {
+          resume,
+          parsedData
+        }
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getJobs(req: Request, res: Response, next: NextFunction) {
+    try {
+      const jobs = await prisma.job.findMany({
+        where: { status: 'OPEN' },
+        include: { recruiter: true },
+        orderBy: { createdAt: 'desc' }
+      });
+      res.status(200).json({ status: 'success', data: jobs });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async applyToJob(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { jobId } = req.body;
+      const userId = req.user?.userId;
+
+      if (!jobId || !userId) {
+        throw new AppError('jobId and userId are required', 400);
+      }
+
+      const candidateProfile = await prisma.candidateProfile.findUnique({
+        where: { userId },
+        include: { resumes: { orderBy: { createdAt: 'desc' }, take: 1 } }
+      });
+
+      if (!candidateProfile || candidateProfile.resumes.length === 0) {
+        throw new AppError('Candidate profile or resume not found. Please upload a resume first.', 400);
+      }
+
+      const resume = candidateProfile.resumes[0];
+
+      const job = await prisma.job.findUnique({ where: { id: jobId } });
+      if (!job) {
+        throw new AppError('Job not found', 404);
+      }
+
+      // Check if already applied
+      const existingApplication = await prisma.application.findFirst({
+        where: { candidateId: candidateProfile.id, jobId }
+      });
+
+      if (existingApplication) {
+        throw new AppError('You have already applied to this job.', 400);
+      }
+
+      // Evaluate match with AI
+      const matchData = await evaluateCandidateMatch(resume.parsedData, job.description);
+
+      // Save Application and Evaluation in a transaction
+      const result = await prisma.$transaction(async (tx) => {
+        const application = await tx.application.create({
+          data: {
+            candidateId: candidateProfile.id,
+            jobId: job.id,
+            resumeId: resume.id,
+            status: 'AI_REVIEW'
+          }
+        });
+
+        const evaluation = await tx.candidateEvaluation.create({
+          data: {
+            candidateId: candidateProfile.id,
+            jobId: job.id,
+            applicationId: application.id,
+            overallScore: matchData.overallScore || matchData.skillScore,
+            skillScore: matchData.skillScore,
+            experienceScore: matchData.experienceScore,
+            matchedSkills: matchData.matchedSkills || [],
+            missingSkills: matchData.missingSkills || [],
+            summary: matchData.summary
+          }
+        });
+
+        return { application, evaluation };
+      });
+
+      res.status(201).json({ status: 'success', data: result });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getApplications(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user?.userId;
+
+      if (!userId) {
+        throw new AppError('Unauthorized', 401);
+      }
+
+      const candidateProfile = await prisma.candidateProfile.findUnique({
+        where: { userId }
+      });
+
+      if (!candidateProfile) {
+        return res.status(200).json({ status: 'success', data: [] });
+      }
+
+      const applications = await prisma.application.findMany({
+        where: { candidateId: candidateProfile.id },
+        include: {
+          job: {
+            include: { recruiter: { include: { user: { select: { name: true } } } } }
+          },
+          evaluation: true
+        },
+        orderBy: { createdAt: 'desc' }
+      });
+
+      res.status(200).json({ status: 'success', data: applications });
+    } catch (error) {
+      next(error);
+    }
+  }
+}

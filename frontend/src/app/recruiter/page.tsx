@@ -1,7 +1,14 @@
+"use client";
+
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Briefcase, FileText, CheckCircle } from "lucide-react";
+import { JobAnalyzer } from "@/components/recruiter/JobAnalyzer";
+import { ParsedJobView } from "@/components/recruiter/ParsedJobView";
+import { TopCandidatesList } from "@/components/recruiter/TopCandidatesList";
 
 export default function RecruiterDashboardPage() {
+  const [parsedJob, setParsedJob] = useState<any>(null);
   return (
     <div className="space-y-6">
       <div>
@@ -55,18 +62,37 @@ export default function RecruiterDashboardPage() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4 bg-card/50 backdrop-blur-sm border-border">
           <CardHeader>
-            <CardTitle>Recent Candidates</CardTitle>
+            <CardTitle>Job Description Parser</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-sm text-muted-foreground">Mock candidate list will appear here.</div>
+            {parsedJob ? (
+              <ParsedJobView 
+                data={parsedJob.analyzedData || parsedJob} 
+                onReset={() => setParsedJob(null)} 
+              />
+            ) : (
+              <>
+                <div className="text-sm text-muted-foreground mb-4">
+                  Paste a raw job description below. Our AI will extract the core requirements and nice-to-haves automatically.
+                </div>
+                <JobAnalyzer onAnalyzeSuccess={setParsedJob} />
+              </>
+            )}
           </CardContent>
         </Card>
+        
         <Card className="col-span-3 bg-card/50 backdrop-blur-sm border-border">
           <CardHeader>
-            <CardTitle>AI Insights</CardTitle>
+            <CardTitle>Candidate Matches</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-sm text-muted-foreground">AI summaries and top matches will appear here.</div>
+            {parsedJob && parsedJob.job ? (
+              <TopCandidatesList jobId={parsedJob.job.id} />
+            ) : (
+              <div className="text-sm text-muted-foreground flex h-[300px] items-center justify-center border border-dashed rounded-lg p-6 text-center">
+                Parse a job description first to see AI-ranked candidate matches here.
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

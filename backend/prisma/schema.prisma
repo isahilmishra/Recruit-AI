@@ -1,10 +1,129 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
 datasource db {
   provider = "postgresql"
 }
 
-generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+model User {
+  id               String            @id @default(uuid())
+  name             String
+  email            String            @unique
+  passwordHash     String
+  role             Role
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  candidateProfile CandidateProfile?
+  recruiterProfile RecruiterProfile?
+}
+
+model RecruiterProfile {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  companyName String
+  companyRole String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  jobs        Job[]
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CandidateProfile {
+  id           String                @id @default(uuid())
+  userId       String                @unique
+  phone        String?
+  location     String?
+  education    Json?
+  skills       String[]
+  experience   Json?
+  projects     Json?
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+  applications Application[]
+  evaluations  CandidateEvaluation[]
+  user         User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resumes      Resume[]
+}
+
+model Resume {
+  id               String           @id @default(uuid())
+  candidateId      String
+  fileName         String
+  fileUrl          String
+  extractedText    String?
+  parsedData       Json?
+  processingStatus ProcessingStatus @default(PENDING)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  applications     Application[]
+  candidate        CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+}
+
+model Job {
+  id              String                @id @default(uuid())
+  recruiterId     String
+  title           String
+  company         String
+  location        String?
+  description     String
+  requirements    String[]
+  preferredSkills String[]
+  experienceLevel String?
+  source          String?
+  sourceJobId     String?
+  applicationUrl  String?
+  status          String                @default("OPEN")
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+  applications    Application[]
+  evaluations     CandidateEvaluation[]
+  recruiter       RecruiterProfile      @relation(fields: [recruiterId], references: [id])
+}
+
+model Application {
+  id          String                     @id @default(uuid())
+  candidateId String
+  jobId       String
+  resumeId    String?
+  status      ApplicationStatus          @default(APPLIED)
+  appliedAt   DateTime                   @default(now())
+  updatedAt   DateTime                   @updatedAt
+  candidate   CandidateProfile           @relation(fields: [candidateId], references: [id])
+  job         Job                        @relation(fields: [jobId], references: [id])
+  resume      Resume?                    @relation(fields: [resumeId], references: [id])
+  history     ApplicationStatusHistory[]
+  evaluation  CandidateEvaluation?
+}
+
+model CandidateEvaluation {
+  id              String           @id @default(uuid())
+  candidateId     String
+  jobId           String
+  applicationId   String           @unique
+  overallScore    Float?
+  semanticScore   Float?
+  skillScore      Float?
+  experienceScore Float?
+  matchedSkills   String[]
+  missingSkills   String[]
+  summary         String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  application     Application      @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  candidate       CandidateProfile @relation(fields: [candidateId], references: [id])
+  job             Job              @relation(fields: [jobId], references: [id])
+}
+
+model ApplicationStatusHistory {
+  id            String             @id @default(uuid())
+  applicationId String
+  oldStatus     ApplicationStatus?
+  newStatus     ApplicationStatus
+  changedBy     String
+  createdAt     DateTime           @default(now())
+  application   Application        @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 }
 
 enum Role {
@@ -29,128 +148,4 @@ enum ProcessingStatus {
   PROCESSING
   COMPLETED
   FAILED
-}
-
-model User {
-  id           String   @id @default(uuid())
-  name         String
-  email        String   @unique
-  passwordHash String
-  role         Role
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  recruiterProfile RecruiterProfile?
-  candidateProfile CandidateProfile?
-}
-
-model RecruiterProfile {
-  id          String   @id @default(uuid())
-  userId      String   @unique
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  companyName String
-  companyRole String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  jobs        Job[]
-}
-
-model CandidateProfile {
-  id         String   @id @default(uuid())
-  userId     String   @unique
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  phone      String?
-  location   String?
-  education  Json?
-  skills     String[]
-  experience Json?
-  projects   Json?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  resumes       Resume[]
-  applications  Application[]
-  evaluations   CandidateEvaluation[]
-}
-
-model Resume {
-  id               String           @id @default(uuid())
-  candidateId      String
-  candidate        CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
-  fileName         String
-  fileUrl          String
-  extractedText    String?          @db.Text
-  parsedData       Json?
-  processingStatus ProcessingStatus @default(PENDING)
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
-
-  applications Application[]
-}
-
-model Job {
-  id              String   @id @default(uuid())
-  recruiterId     String
-  recruiter       RecruiterProfile @relation(fields: [recruiterId], references: [id])
-  title           String
-  company         String
-  location        String?
-  description     String   @db.Text
-  requirements    String[]
-  preferredSkills String[]
-  experienceLevel String?
-  source          String?
-  sourceJobId     String?
-  applicationUrl  String?
-  status          String   @default("OPEN")
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  applications Application[]
-  evaluations  CandidateEvaluation[]
-}
-
-model Application {
-  id          String            @id @default(uuid())
-  candidateId String
-  candidate   CandidateProfile  @relation(fields: [candidateId], references: [id])
-  jobId       String
-  job         Job               @relation(fields: [jobId], references: [id])
-  resumeId    String?
-  resume      Resume?           @relation(fields: [resumeId], references: [id])
-  status      ApplicationStatus @default(APPLIED)
-  appliedAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-
-  history     ApplicationStatusHistory[]
-  evaluation  CandidateEvaluation?
-}
-
-model CandidateEvaluation {
-  id              String           @id @default(uuid())
-  candidateId     String
-  candidate       CandidateProfile @relation(fields: [candidateId], references: [id])
-  jobId           String
-  job             Job              @relation(fields: [jobId], references: [id])
-  applicationId   String           @unique
-  application     Application      @relation(fields: [applicationId], references: [id], onDelete: Cascade)
-  overallScore    Float?
-  semanticScore   Float?
-  skillScore      Float?
-  experienceScore Float?
-  matchedSkills   String[]
-  missingSkills   String[]
-  summary         String?          @db.Text
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-}
-
-model ApplicationStatusHistory {
-  id            String            @id @default(uuid())
-  applicationId String
-  application   Application       @relation(fields: [applicationId], references: [id], onDelete: Cascade)
-  oldStatus     ApplicationStatus?
-  newStatus     ApplicationStatus
-  changedBy     String
-  createdAt     DateTime          @default(now())
 }

@@ -1,16 +1,33 @@
 "use client";
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, Clock, CheckCircle } from "lucide-react";
-import { ResumeUploader } from "@/components/candidate/ResumeUploader";
-import { ParsedResumeView } from "@/components/candidate/ParsedResumeView";
-import { MatchEvaluator } from "@/components/candidate/MatchEvaluator";
-import { MatchScoreView } from "@/components/candidate/MatchScoreView";
+import { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Briefcase, Clock, CheckCircle, ArrowRight } from "lucide-react";
+import { useAuth } from "@/lib/auth-context";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function CandidateDashboardPage() {
-  const [parsedData, setParsedData] = useState<any>(null);
-  const [matchData, setMatchData] = useState<any>(null);
+  const { token } = useAuth();
+  const [applications, setApplications] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchApplications = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/candidates/applications", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const result = await res.json();
+        if (res.ok && result.data) {
+          setApplications(result.data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    if (token) fetchApplications();
+  }, [token]);
+
   return (
     <div className="space-y-6">
       <div>
@@ -25,7 +42,7 @@ export default function CandidateDashboardPage() {
             <Briefcase className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">4</div>
+            <div className="text-2xl font-bold">{applications.length}</div>
           </CardContent>
         </Card>
         <Card className="bg-card/50 backdrop-blur-sm border-border">
@@ -34,16 +51,20 @@ export default function CandidateDashboardPage() {
             <Clock className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">2</div>
+            <div className="text-2xl font-bold">
+              {applications.filter(a => a.status === 'AI_REVIEW').length}
+            </div>
           </CardContent>
         </Card>
         <Card className="bg-card/50 backdrop-blur-sm border-border">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Interviews</CardTitle>
+            <CardTitle className="text-sm font-medium">Top Matches</CardTitle>
             <CheckCircle className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">1</div>
+            <div className="text-2xl font-bold">
+              {applications.filter(a => (a.evaluation?.overallScore || 0) >= 80).length}
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -54,44 +75,42 @@ export default function CandidateDashboardPage() {
             <CardTitle>Recent Applications</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-sm text-muted-foreground">Your recent job applications will appear here.</div>
+            {applications.length === 0 ? (
+              <div className="text-sm text-muted-foreground">Your recent job applications will appear here.</div>
+            ) : (
+              <div className="space-y-4">
+                {applications.slice(0, 3).map(app => (
+                  <div key={app.id} className="flex justify-between items-center pb-4 border-b border-border/50 last:border-0 last:pb-0">
+                    <div>
+                      <div className="font-medium">{app.job?.title}</div>
+                      <div className="text-xs text-muted-foreground">{app.job?.company || 'Company'}</div>
+                    </div>
+                    <div className="text-sm font-bold text-primary">{Math.round(app.evaluation?.overallScore || 0)}%</div>
+                  </div>
+                ))}
+                {applications.length > 3 && (
+                  <Button variant="link" className="w-full text-muted-foreground" asChild>
+                    <Link href="/candidate/applications">View all <ArrowRight className="h-4 w-4 ml-1" /></Link>
+                  </Button>
+                )}
+              </div>
+            )}
           </CardContent>
         </Card>
         <Card className="bg-card/50 backdrop-blur-sm border-border">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>My Resume</CardTitle>
+            <div>
+              <CardTitle>My Resume</CardTitle>
+              <CardDescription>Manage your parsed profile</CardDescription>
+            </div>
           </CardHeader>
-          <CardContent>
-            {parsedData ? (
-              <>
-                <ParsedResumeView 
-                  data={parsedData} 
-                  onReset={() => {
-                    setParsedData(null);
-                    setMatchData(null);
-                  }} 
-                />
-                
-                {matchData ? (
-                  <MatchScoreView 
-                    data={matchData} 
-                    onReset={() => setMatchData(null)} 
-                  />
-                ) : (
-                  <MatchEvaluator 
-                    resumeData={parsedData} 
-                    onMatchSuccess={setMatchData} 
-                  />
-                )}
-              </>
-            ) : (
-              <>
-                <div className="text-sm text-muted-foreground mb-4">
-                  Upload your resume to let AI parse your profile and match you with relevant jobs.
-                </div>
-                <ResumeUploader onParseSuccess={setParsedData} />
-              </>
-            )}
+          <CardContent className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              To apply for new jobs, you first need to parse your resume and build your profile using our AI engine.
+            </p>
+            <Button asChild className="w-full">
+              <Link href="/candidate/resume">Manage Resume Profile <ArrowRight className="h-4 w-4 ml-2" /></Link>
+            </Button>
           </CardContent>
         </Card>
       </div>

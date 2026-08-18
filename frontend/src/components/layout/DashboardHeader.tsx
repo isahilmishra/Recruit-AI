@@ -13,9 +13,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Link from "next/link";
+import { useAuth } from "@/lib/auth-context";
 
 export function DashboardHeader() {
+  const { user, logout } = useAuth();
   return (
     <header className="flex h-16 items-center justify-between border-b border-border bg-card px-6">
       <div className="flex items-center gap-4 flex-1">
@@ -35,21 +36,21 @@ export function DashboardHeader() {
         <DropdownMenu>
           <DropdownMenuTrigger className="relative flex h-8 w-8 items-center justify-center rounded-full border border-border bg-transparent outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring">
             <Avatar className="h-8 w-8 bg-primary/20 text-primary">
-              <AvatarFallback>U</AvatarFallback>
+              <AvatarFallback>{user?.name?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end">
             <DropdownMenuGroup>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none text-foreground">Demo User</p>
-                  <p className="text-xs leading-none text-muted-foreground">user@recruitai.test</p>
+                  <p className="text-sm font-medium leading-none text-foreground">{user?.name || 'Demo User'}</p>
+                  <p className="text-xs leading-none text-muted-foreground">{user?.email || 'user@recruitai.test'}</p>
                 </div>
               </DropdownMenuLabel>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer p-0">
-              <Link href="/" className="w-full h-full block px-2 py-1.5">Log out</Link>
+            <DropdownMenuItem className="cursor-pointer p-0" onClick={logout}>
+              <button className="w-full h-full text-left px-2 py-1.5">Log out</button>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
