@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../utils/prisma';
-import { AppError } from '../middleware/errorHandler';
+import { AppError } from '../utils/AppError';
 import { parseResume, evaluateCandidateMatch } from '../utils/ai';
-import pdfParse from 'pdf-parse';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const pdfParse = require('pdf-parse');
 
 export class CandidateController {
   static async uploadResume(req: Request, res: Response, next: NextFunction) {
@@ -108,6 +110,7 @@ export class CandidateController {
       }
 
       const resume = candidateProfile.resumes[0];
+      if (!resume) throw new AppError('Resume not found', 400);
 
       const job = await prisma.job.findUnique({ where: { id: jobId } });
       if (!job) {
@@ -184,7 +187,7 @@ export class CandidateController {
           },
           evaluation: true
         },
-        orderBy: { createdAt: 'desc' }
+        orderBy: { appliedAt: 'desc' }
       });
 
       res.status(200).json({ status: 'success', data: applications });

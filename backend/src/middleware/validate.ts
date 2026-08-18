@@ -13,10 +13,11 @@ export const validate = (schema: ZodTypeAny) => {
       next();
     } catch (error: unknown) {
       if (error instanceof ZodError) {
+        const errorMessages = error.issues.map((e) => `${e.path[e.path.length - 1]}: ${e.message}`).join(', ');
         return res.status(400).json({
           status: 'fail',
-          message: 'Validation failed',
-          errors: (error as any).errors,
+          message: `Validation failed: ${errorMessages}`,
+          errors: error.issues,
         });
       }
       next(error);

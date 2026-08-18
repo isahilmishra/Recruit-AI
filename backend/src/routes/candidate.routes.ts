@@ -10,7 +10,6 @@ const router = Router();
 router.use(authenticate);
 router.use(authorize('CANDIDATE'));
 
-router.get('/profile', CandidateController.getProfile);
 router.post('/resume', upload.single('resumeFile'), CandidateController.uploadResume);
 router.get('/jobs', CandidateController.getJobs);
 router.post('/evaluate', CandidateController.applyToJob);
