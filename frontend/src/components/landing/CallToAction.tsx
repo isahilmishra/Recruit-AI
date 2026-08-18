@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 
 export function CallToAction() {
   return (
@@ -24,9 +24,9 @@ export function CallToAction() {
           Join the waitlist of modern recruiting teams using RecruitAI to eliminate manual screening.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-          <Button asChild size="lg" className="h-14 px-10 text-lg rounded-full">
-            <Link href="/auth/register">Get Started Now</Link>
-          </Button>
+          <Link href="/auth/register" className={buttonVariants({ size: "lg", className: "h-14 px-10 text-lg rounded-full" })}>
+            Get Started Now
+          </Link>
         </div>
       </motion.div>
     </section>

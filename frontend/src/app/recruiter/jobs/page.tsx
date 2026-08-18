@@ -5,7 +5,7 @@ import { useAuth } from "@/lib/auth-context";
 import { Card, CardContent } from "@/components/ui/card";
 import { Loader2, Briefcase, Users, PlusCircle } from "lucide-react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function RecruiterJobsPage() {
@@ -47,11 +47,9 @@ export default function RecruiterJobsPage() {
           <h1 className="text-2xl font-bold text-foreground">My Jobs</h1>
           <p className="text-muted-foreground">Manage your posted jobs and view applicants.</p>
         </div>
-        <Button asChild>
-          <Link href="/recruiter">
-            <PlusCircle className="h-4 w-4 mr-2" /> Post New Job
-          </Link>
-        </Button>
+        <Link href="/recruiter" className={buttonVariants()}>
+          <PlusCircle className="h-4 w-4 mr-2" /> Post New Job
+        </Link>
       </div>
 
       {jobs.length === 0 ? (
@@ -59,9 +57,9 @@ export default function RecruiterJobsPage() {
           <Briefcase className="h-10 w-10 text-muted-foreground mb-4 opacity-50" />
           <h3 className="font-semibold text-lg">No Jobs Posted</h3>
           <p className="text-muted-foreground text-sm mt-1 mb-4">You haven't posted any jobs yet.</p>
-          <Button asChild variant="outline">
-             <Link href="/recruiter">Post a Job</Link>
-          </Button>
+          <Link href="/recruiter" className={buttonVariants({ variant: "outline" })}>
+             Post a Job
+          </Link>
         </Card>
       ) : (
         <div className="grid gap-4">

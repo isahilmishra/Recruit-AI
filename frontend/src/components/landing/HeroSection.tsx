@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Sparkles, ArrowRight, Zap } from "lucide-react";
 
 export function HeroSection() {
@@ -65,16 +65,12 @@ export function HeroSection() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8"
         >
-          <Button asChild size="lg" className="h-14 px-8 text-lg rounded-full shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all hover:-translate-y-1">
-            <Link href="/auth/register">
-              Start Hiring for Free <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-          <Button asChild variant="outline" size="lg" className="h-14 px-8 text-lg rounded-full bg-background/50 backdrop-blur-sm border-border hover:bg-accent transition-all hover:-translate-y-1">
-            <Link href="/auth/login">
-              Apply as a Candidate <Zap className="ml-2 h-5 w-5 text-yellow-500" />
-            </Link>
-          </Button>
+          <Link href="/auth/register" className={buttonVariants({ size: "lg", className: "h-14 px-8 text-lg rounded-full shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all hover:-translate-y-1" })}>
+            Start Hiring for Free <ArrowRight className="ml-2 h-5 w-5" />
+          </Link>
+          <Link href="/auth/login" className={buttonVariants({ variant: "outline", size: "lg", className: "h-14 px-8 text-lg rounded-full bg-background/50 backdrop-blur-sm border-border hover:bg-accent transition-all hover:-translate-y-1" })}>
+            Apply as a Candidate <Zap className="ml-2 h-5 w-5 text-yellow-500" />
+          </Link>
         </motion.div>
       </div>
 

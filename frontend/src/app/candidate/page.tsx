@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Briefcase, Clock, CheckCircle, ArrowRight } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 
 export default function CandidateDashboardPage() {
   const { token } = useAuth();
@@ -89,9 +89,9 @@ export default function CandidateDashboardPage() {
                   </div>
                 ))}
                 {applications.length > 3 && (
-                  <Button variant="link" className="w-full text-muted-foreground" asChild>
-                    <Link href="/candidate/applications">View all <ArrowRight className="h-4 w-4 ml-1" /></Link>
-                  </Button>
+                  <Link href="/candidate/applications" className={buttonVariants({ variant: "link", className: "w-full text-muted-foreground" })}>
+                    View all <ArrowRight className="h-4 w-4 ml-1" />
+                  </Link>
                 )}
               </div>
             )}
@@ -108,9 +108,9 @@ export default function CandidateDashboardPage() {
             <p className="text-sm text-muted-foreground">
               To apply for new jobs, you first need to parse your resume and build your profile using our AI engine.
             </p>
-            <Button asChild className="w-full">
-              <Link href="/candidate/resume">Manage Resume Profile <ArrowRight className="h-4 w-4 ml-2" /></Link>
-            </Button>
+            <Link href="/candidate/resume" className={buttonVariants({ className: "w-full" })}>
+              Manage Resume Profile <ArrowRight className="h-4 w-4 ml-2" />
+            </Link>
           </CardContent>
         </Card>
       </div>
