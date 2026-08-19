@@ -1,0 +1,1785 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model CandidateEvaluation
+ *
+ */
+export type CandidateEvaluationModel = runtime.Types.Result.DefaultSelection<Prisma.$CandidateEvaluationPayload>;
+export type AggregateCandidateEvaluation = {
+    _count: CandidateEvaluationCountAggregateOutputType | null;
+    _avg: CandidateEvaluationAvgAggregateOutputType | null;
+    _sum: CandidateEvaluationSumAggregateOutputType | null;
+    _min: CandidateEvaluationMinAggregateOutputType | null;
+    _max: CandidateEvaluationMaxAggregateOutputType | null;
+};
+export type CandidateEvaluationAvgAggregateOutputType = {
+    overallScore: number | null;
+    semanticScore: number | null;
+    skillScore: number | null;
+    experienceScore: number | null;
+};
+export type CandidateEvaluationSumAggregateOutputType = {
+    overallScore: number | null;
+    semanticScore: number | null;
+    skillScore: number | null;
+    experienceScore: number | null;
+};
+export type CandidateEvaluationMinAggregateOutputType = {
+    id: string | null;
+    candidateId: string | null;
+    jobId: string | null;
+    applicationId: string | null;
+    overallScore: number | null;
+    semanticScore: number | null;
+    skillScore: number | null;
+    experienceScore: number | null;
+    summary: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+};
+export type CandidateEvaluationMaxAggregateOutputType = {
+    id: string | null;
+    candidateId: string | null;
+    jobId: string | null;
+    applicationId: string | null;
+    overallScore: number | null;
+    semanticScore: number | null;
+    skillScore: number | null;
+    experienceScore: number | null;
+    summary: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+};
+export type CandidateEvaluationCountAggregateOutputType = {
+    id: number;
+    candidateId: number;
+    jobId: number;
+    applicationId: number;
+    overallScore: number;
+    semanticScore: number;
+    skillScore: number;
+    experienceScore: number;
+    matchedSkills: number;
+    missingSkills: number;
+    summary: number;
+    createdAt: number;
+    updatedAt: number;
+    _all: number;
+};
+export type CandidateEvaluationAvgAggregateInputType = {
+    overallScore?: true;
+    semanticScore?: true;
+    skillScore?: true;
+    experienceScore?: true;
+};
+export type CandidateEvaluationSumAggregateInputType = {
+    overallScore?: true;
+    semanticScore?: true;
+    skillScore?: true;
+    experienceScore?: true;
+};
+export type CandidateEvaluationMinAggregateInputType = {
+    id?: true;
+    candidateId?: true;
+    jobId?: true;
+    applicationId?: true;
+    overallScore?: true;
+    semanticScore?: true;
+    skillScore?: true;
+    experienceScore?: true;
+    summary?: true;
+    createdAt?: true;
+    updatedAt?: true;
+};
+export type CandidateEvaluationMaxAggregateInputType = {
+    id?: true;
+    candidateId?: true;
+    jobId?: true;
+    applicationId?: true;
+    overallScore?: true;
+    semanticScore?: true;
+    skillScore?: true;
+    experienceScore?: true;
+    summary?: true;
+    createdAt?: true;
+    updatedAt?: true;
+};
+export type CandidateEvaluationCountAggregateInputType = {
+    id?: true;
+    candidateId?: true;
+    jobId?: true;
+    applicationId?: true;
+    overallScore?: true;
+    semanticScore?: true;
+    skillScore?: true;
+    experienceScore?: true;
+    matchedSkills?: true;
+    missingSkills?: true;
+    summary?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    _all?: true;
+};
+export type CandidateEvaluationAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which CandidateEvaluation to aggregate.
+     */
+    where?: Prisma.CandidateEvaluationWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CandidateEvaluations to fetch.
+     */
+    orderBy?: Prisma.CandidateEvaluationOrderByWithRelationInput | Prisma.CandidateEvaluationOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.CandidateEvaluationWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CandidateEvaluations from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CandidateEvaluations.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned CandidateEvaluations
+    **/
+    _count?: true | CandidateEvaluationCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+    **/
+    _avg?: CandidateEvaluationAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: CandidateEvaluationSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: CandidateEvaluationMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: CandidateEvaluationMaxAggregateInputType;
+};
+export type GetCandidateEvaluationAggregateType<T extends CandidateEvaluationAggregateArgs> = {
+    [P in keyof T & keyof AggregateCandidateEvaluation]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateCandidateEvaluation[P]> : Prisma.GetScalarType<T[P], AggregateCandidateEvaluation[P]>;
+};
+export type CandidateEvaluationGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.CandidateEvaluationWhereInput;
+    orderBy?: Prisma.CandidateEvaluationOrderByWithAggregationInput | Prisma.CandidateEvaluationOrderByWithAggregationInput[];
+    by: Prisma.CandidateEvaluationScalarFieldEnum[] | Prisma.CandidateEvaluationScalarFieldEnum;
+    having?: Prisma.CandidateEvaluationScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: CandidateEvaluationCountAggregateInputType | true;
+    _avg?: CandidateEvaluationAvgAggregateInputType;
+    _sum?: CandidateEvaluationSumAggregateInputType;
+    _min?: CandidateEvaluationMinAggregateInputType;
+    _max?: CandidateEvaluationMaxAggregateInputType;
+};
+export type CandidateEvaluationGroupByOutputType = {
+    id: string;
+    candidateId: string;
+    jobId: string;
+    applicationId: string;
+    overallScore: number | null;
+    semanticScore: number | null;
+    skillScore: number | null;
+    experienceScore: number | null;
+    matchedSkills: string[];
+    missingSkills: string[];
+    summary: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+    _count: CandidateEvaluationCountAggregateOutputType | null;
+    _avg: CandidateEvaluationAvgAggregateOutputType | null;
+    _sum: CandidateEvaluationSumAggregateOutputType | null;
+    _min: CandidateEvaluationMinAggregateOutputType | null;
+    _max: CandidateEvaluationMaxAggregateOutputType | null;
+};
+export type GetCandidateEvaluationGroupByPayload<T extends CandidateEvaluationGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<CandidateEvaluationGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof CandidateEvaluationGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], CandidateEvaluationGroupByOutputType[P]> : Prisma.GetScalarType<T[P], CandidateEvaluationGroupByOutputType[P]>;
+}>>;
+export type CandidateEvaluationWhereInput = {
+    AND?: Prisma.CandidateEvaluationWhereInput | Prisma.CandidateEvaluationWhereInput[];
+    OR?: Prisma.CandidateEvaluationWhereInput[];
+    NOT?: Prisma.CandidateEvaluationWhereInput | Prisma.CandidateEvaluationWhereInput[];
+    id?: Prisma.StringFilter<"CandidateEvaluation"> | string;
+    candidateId?: Prisma.StringFilter<"CandidateEvaluation"> | string;
+    jobId?: Prisma.StringFilter<"CandidateEvaluation"> | string;
+    applicationId?: Prisma.StringFilter<"CandidateEvaluation"> | string;
+    overallScore?: Prisma.FloatNullableFilter<"CandidateEvaluation"> | number | null;
+    semanticScore?: Prisma.FloatNullableFilter<"CandidateEvaluation"> | number | null;
+    skillScore?: Prisma.FloatNullableFilter<"CandidateEvaluation"> | number | null;
+    experienceScore?: Prisma.FloatNullableFilter<"CandidateEvaluation"> | number | null;
+    matchedSkills?: Prisma.StringNullableListFilter<"CandidateEvaluation">;
+    missingSkills?: Prisma.StringNullableListFilter<"CandidateEvaluation">;
+    summary?: Prisma.StringNullableFilter<"CandidateEvaluation"> | string | null;
+    createdAt?: Prisma.DateTimeFilter<"CandidateEvaluation"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"CandidateEvaluation"> | Date | string;
+    application?: Prisma.XOR<Prisma.ApplicationScalarRelationFilter, Prisma.ApplicationWhereInput>;
+    candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>;
+    job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>;
+};
+export type CandidateEvaluationOrderByWithRelationInput = {
+    id?: Prisma.SortOrder;
+    candidateId?: Prisma.SortOrder;
+    jobId?: Prisma.SortOrder;
+    applicationId?: Prisma.SortOrder;
+    overallScore?: Prisma.SortOrderInput | Prisma.SortOrder;
+    semanticScore?: Prisma.SortOrderInput | Prisma.SortOrder;
+    skillScore?: Prisma.SortOrderInput | Prisma.SortOrder;
+    experienceScore?: Prisma.SortOrderInput | Prisma.SortOrder;
+    matchedSkills?: Prisma.SortOrder;
+    missingSkills?: Prisma.SortOrder;
+    summary?: Prisma.SortOrderInput | Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+    application?: Prisma.ApplicationOrderByWithRelationInput;
+    candidate?: Prisma.CandidateProfileOrderByWithRelationInput;
+    job?: Prisma.JobOrderByWithRelationInput;
+};
+export type CandidateEvaluationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string;
+    applicationId?: string;
+    AND?: Prisma.CandidateEvaluationWhereInput | Prisma.CandidateEvaluationWhereInput[];
+    OR?: Prisma.CandidateEvaluationWhereInput[];
+    NOT?: Prisma.CandidateEvaluationWhereInput | Prisma.CandidateEvaluationWhereInput[];
+    candidateId?: Prisma.StringFilter<"CandidateEvaluation"> | string;
+    jobId?: Prisma.StringFilter<"CandidateEvaluation"> | string;
+    overallScore?: Prisma.FloatNullableFilter<"CandidateEvaluation"> | number | null;
+    semanticScore?: Prisma.FloatNullableFilter<"CandidateEvaluation"> | number | null;
+    skillScore?: Prisma.FloatNullableFilter<"CandidateEvaluation"> | number | null;
+    experienceScore?: Prisma.FloatNullableFilter<"CandidateEvaluation"> | number | null;
+    matchedSkills?: Prisma.StringNullableListFilter<"CandidateEvaluation">;
+    missingSkills?: Prisma.StringNullableListFilter<"CandidateEvaluation">;
+    summary?: Prisma.StringNullableFilter<"CandidateEvaluation"> | string | null;
+    createdAt?: Prisma.DateTimeFilter<"CandidateEvaluation"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"CandidateEvaluation"> | Date | string;
+    application?: Prisma.XOR<Prisma.ApplicationScalarRelationFilter, Prisma.ApplicationWhereInput>;
+    candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>;
+    job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>;
+}, "id" | "applicationId">;
+export type CandidateEvaluationOrderByWithAggregationInput = {
+    id?: Prisma.SortOrder;
+    candidateId?: Prisma.SortOrder;
+    jobId?: Prisma.SortOrder;
+    applicationId?: Prisma.SortOrder;
+    overallScore?: Prisma.SortOrderInput | Prisma.SortOrder;
+    semanticScore?: Prisma.SortOrderInput | Prisma.SortOrder;
+    skillScore?: Prisma.SortOrderInput | Prisma.SortOrder;
+    experienceScore?: Prisma.SortOrderInput | Prisma.SortOrder;
+    matchedSkills?: Prisma.SortOrder;
+    missingSkills?: Prisma.SortOrder;
+    summary?: Prisma.SortOrderInput | Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+    _count?: Prisma.CandidateEvaluationCountOrderByAggregateInput;
+    _avg?: Prisma.CandidateEvaluationAvgOrderByAggregateInput;
+    _max?: Prisma.CandidateEvaluationMaxOrderByAggregateInput;
+    _min?: Prisma.CandidateEvaluationMinOrderByAggregateInput;
+    _sum?: Prisma.CandidateEvaluationSumOrderByAggregateInput;
+};
+export type CandidateEvaluationScalarWhereWithAggregatesInput = {
+    AND?: Prisma.CandidateEvaluationScalarWhereWithAggregatesInput | Prisma.CandidateEvaluationScalarWhereWithAggregatesInput[];
+    OR?: Prisma.CandidateEvaluationScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.CandidateEvaluationScalarWhereWithAggregatesInput | Prisma.CandidateEvaluationScalarWhereWithAggregatesInput[];
+    id?: Prisma.StringWithAggregatesFilter<"CandidateEvaluation"> | string;
+    candidateId?: Prisma.StringWithAggregatesFilter<"CandidateEvaluation"> | string;
+    jobId?: Prisma.StringWithAggregatesFilter<"CandidateEvaluation"> | string;
+    applicationId?: Prisma.StringWithAggregatesFilter<"CandidateEvaluation"> | string;
+    overallScore?: Prisma.FloatNullableWithAggregatesFilter<"CandidateEvaluation"> | number | null;
+    semanticScore?: Prisma.FloatNullableWithAggregatesFilter<"CandidateEvaluation"> | number | null;
+    skillScore?: Prisma.FloatNullableWithAggregatesFilter<"CandidateEvaluation"> | number | null;
+    experienceScore?: Prisma.FloatNullableWithAggregatesFilter<"CandidateEvaluation"> | number | null;
+    matchedSkills?: Prisma.StringNullableListFilter<"CandidateEvaluation">;
+    missingSkills?: Prisma.StringNullableListFilter<"CandidateEvaluation">;
+    summary?: Prisma.StringNullableWithAggregatesFilter<"CandidateEvaluation"> | string | null;
+    createdAt?: Prisma.DateTimeWithAggregatesFilter<"CandidateEvaluation"> | Date | string;
+    updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CandidateEvaluation"> | Date | string;
+};
+export type CandidateEvaluationCreateInput = {
+    id?: string;
+    overallScore?: number | null;
+    semanticScore?: number | null;
+    skillScore?: number | null;
+    experienceScore?: number | null;
+    matchedSkills?: Prisma.CandidateEvaluationCreatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationCreatemissingSkillsInput | string[];
+    summary?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    application: Prisma.ApplicationCreateNestedOneWithoutEvaluationInput;
+    candidate: Prisma.CandidateProfileCreateNestedOneWithoutEvaluationsInput;
+    job: Prisma.JobCreateNestedOneWithoutEvaluationsInput;
+};
+export type CandidateEvaluationUncheckedCreateInput = {
+    id?: string;
+    candidateId: string;
+    jobId: string;
+    applicationId: string;
+    overallScore?: number | null;
+    semanticScore?: number | null;
+    skillScore?: number | null;
+    experienceScore?: number | null;
+    matchedSkills?: Prisma.CandidateEvaluationCreatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationCreatemissingSkillsInput | string[];
+    summary?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type CandidateEvaluationUpdateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    semanticScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    skillScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    experienceScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    matchedSkills?: Prisma.CandidateEvaluationUpdatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationUpdatemissingSkillsInput | string[];
+    summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    application?: Prisma.ApplicationUpdateOneRequiredWithoutEvaluationNestedInput;
+    candidate?: Prisma.CandidateProfileUpdateOneRequiredWithoutEvaluationsNestedInput;
+    job?: Prisma.JobUpdateOneRequiredWithoutEvaluationsNestedInput;
+};
+export type CandidateEvaluationUncheckedUpdateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateId?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    applicationId?: Prisma.StringFieldUpdateOperationsInput | string;
+    overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    semanticScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    skillScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    experienceScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    matchedSkills?: Prisma.CandidateEvaluationUpdatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationUpdatemissingSkillsInput | string[];
+    summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type CandidateEvaluationCreateManyInput = {
+    id?: string;
+    candidateId: string;
+    jobId: string;
+    applicationId: string;
+    overallScore?: number | null;
+    semanticScore?: number | null;
+    skillScore?: number | null;
+    experienceScore?: number | null;
+    matchedSkills?: Prisma.CandidateEvaluationCreatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationCreatemissingSkillsInput | string[];
+    summary?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type CandidateEvaluationUpdateManyMutationInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    semanticScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    skillScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    experienceScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    matchedSkills?: Prisma.CandidateEvaluationUpdatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationUpdatemissingSkillsInput | string[];
+    summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type CandidateEvaluationUncheckedUpdateManyInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateId?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    applicationId?: Prisma.StringFieldUpdateOperationsInput | string;
+    overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    semanticScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    skillScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    experienceScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    matchedSkills?: Prisma.CandidateEvaluationUpdatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationUpdatemissingSkillsInput | string[];
+    summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type CandidateEvaluationListRelationFilter = {
+    every?: Prisma.CandidateEvaluationWhereInput;
+    some?: Prisma.CandidateEvaluationWhereInput;
+    none?: Prisma.CandidateEvaluationWhereInput;
+};
+export type CandidateEvaluationOrderByRelationAggregateInput = {
+    _count?: Prisma.SortOrder;
+};
+export type CandidateEvaluationNullableScalarRelationFilter = {
+    is?: Prisma.CandidateEvaluationWhereInput | null;
+    isNot?: Prisma.CandidateEvaluationWhereInput | null;
+};
+export type CandidateEvaluationCountOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    candidateId?: Prisma.SortOrder;
+    jobId?: Prisma.SortOrder;
+    applicationId?: Prisma.SortOrder;
+    overallScore?: Prisma.SortOrder;
+    semanticScore?: Prisma.SortOrder;
+    skillScore?: Prisma.SortOrder;
+    experienceScore?: Prisma.SortOrder;
+    matchedSkills?: Prisma.SortOrder;
+    missingSkills?: Prisma.SortOrder;
+    summary?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type CandidateEvaluationAvgOrderByAggregateInput = {
+    overallScore?: Prisma.SortOrder;
+    semanticScore?: Prisma.SortOrder;
+    skillScore?: Prisma.SortOrder;
+    experienceScore?: Prisma.SortOrder;
+};
+export type CandidateEvaluationMaxOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    candidateId?: Prisma.SortOrder;
+    jobId?: Prisma.SortOrder;
+    applicationId?: Prisma.SortOrder;
+    overallScore?: Prisma.SortOrder;
+    semanticScore?: Prisma.SortOrder;
+    skillScore?: Prisma.SortOrder;
+    experienceScore?: Prisma.SortOrder;
+    summary?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type CandidateEvaluationMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    candidateId?: Prisma.SortOrder;
+    jobId?: Prisma.SortOrder;
+    applicationId?: Prisma.SortOrder;
+    overallScore?: Prisma.SortOrder;
+    semanticScore?: Prisma.SortOrder;
+    skillScore?: Prisma.SortOrder;
+    experienceScore?: Prisma.SortOrder;
+    summary?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type CandidateEvaluationSumOrderByAggregateInput = {
+    overallScore?: Prisma.SortOrder;
+    semanticScore?: Prisma.SortOrder;
+    skillScore?: Prisma.SortOrder;
+    experienceScore?: Prisma.SortOrder;
+};
+export type CandidateEvaluationCreateNestedManyWithoutCandidateInput = {
+    create?: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutCandidateInput, Prisma.CandidateEvaluationUncheckedCreateWithoutCandidateInput> | Prisma.CandidateEvaluationCreateWithoutCandidateInput[] | Prisma.CandidateEvaluationUncheckedCreateWithoutCandidateInput[];
+    connectOrCreate?: Prisma.CandidateEvaluationCreateOrConnectWithoutCandidateInput | Prisma.CandidateEvaluationCreateOrConnectWithoutCandidateInput[];
+    createMany?: Prisma.CandidateEvaluationCreateManyCandidateInputEnvelope;
+    connect?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+};
+export type CandidateEvaluationUncheckedCreateNestedManyWithoutCandidateInput = {
+    create?: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutCandidateInput, Prisma.CandidateEvaluationUncheckedCreateWithoutCandidateInput> | Prisma.CandidateEvaluationCreateWithoutCandidateInput[] | Prisma.CandidateEvaluationUncheckedCreateWithoutCandidateInput[];
+    connectOrCreate?: Prisma.CandidateEvaluationCreateOrConnectWithoutCandidateInput | Prisma.CandidateEvaluationCreateOrConnectWithoutCandidateInput[];
+    createMany?: Prisma.CandidateEvaluationCreateManyCandidateInputEnvelope;
+    connect?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+};
+export type CandidateEvaluationUpdateManyWithoutCandidateNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutCandidateInput, Prisma.CandidateEvaluationUncheckedCreateWithoutCandidateInput> | Prisma.CandidateEvaluationCreateWithoutCandidateInput[] | Prisma.CandidateEvaluationUncheckedCreateWithoutCandidateInput[];
+    connectOrCreate?: Prisma.CandidateEvaluationCreateOrConnectWithoutCandidateInput | Prisma.CandidateEvaluationCreateOrConnectWithoutCandidateInput[];
+    upsert?: Prisma.CandidateEvaluationUpsertWithWhereUniqueWithoutCandidateInput | Prisma.CandidateEvaluationUpsertWithWhereUniqueWithoutCandidateInput[];
+    createMany?: Prisma.CandidateEvaluationCreateManyCandidateInputEnvelope;
+    set?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    disconnect?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    delete?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    connect?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    update?: Prisma.CandidateEvaluationUpdateWithWhereUniqueWithoutCandidateInput | Prisma.CandidateEvaluationUpdateWithWhereUniqueWithoutCandidateInput[];
+    updateMany?: Prisma.CandidateEvaluationUpdateManyWithWhereWithoutCandidateInput | Prisma.CandidateEvaluationUpdateManyWithWhereWithoutCandidateInput[];
+    deleteMany?: Prisma.CandidateEvaluationScalarWhereInput | Prisma.CandidateEvaluationScalarWhereInput[];
+};
+export type CandidateEvaluationUncheckedUpdateManyWithoutCandidateNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutCandidateInput, Prisma.CandidateEvaluationUncheckedCreateWithoutCandidateInput> | Prisma.CandidateEvaluationCreateWithoutCandidateInput[] | Prisma.CandidateEvaluationUncheckedCreateWithoutCandidateInput[];
+    connectOrCreate?: Prisma.CandidateEvaluationCreateOrConnectWithoutCandidateInput | Prisma.CandidateEvaluationCreateOrConnectWithoutCandidateInput[];
+    upsert?: Prisma.CandidateEvaluationUpsertWithWhereUniqueWithoutCandidateInput | Prisma.CandidateEvaluationUpsertWithWhereUniqueWithoutCandidateInput[];
+    createMany?: Prisma.CandidateEvaluationCreateManyCandidateInputEnvelope;
+    set?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    disconnect?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    delete?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    connect?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    update?: Prisma.CandidateEvaluationUpdateWithWhereUniqueWithoutCandidateInput | Prisma.CandidateEvaluationUpdateWithWhereUniqueWithoutCandidateInput[];
+    updateMany?: Prisma.CandidateEvaluationUpdateManyWithWhereWithoutCandidateInput | Prisma.CandidateEvaluationUpdateManyWithWhereWithoutCandidateInput[];
+    deleteMany?: Prisma.CandidateEvaluationScalarWhereInput | Prisma.CandidateEvaluationScalarWhereInput[];
+};
+export type CandidateEvaluationCreateNestedManyWithoutJobInput = {
+    create?: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutJobInput, Prisma.CandidateEvaluationUncheckedCreateWithoutJobInput> | Prisma.CandidateEvaluationCreateWithoutJobInput[] | Prisma.CandidateEvaluationUncheckedCreateWithoutJobInput[];
+    connectOrCreate?: Prisma.CandidateEvaluationCreateOrConnectWithoutJobInput | Prisma.CandidateEvaluationCreateOrConnectWithoutJobInput[];
+    createMany?: Prisma.CandidateEvaluationCreateManyJobInputEnvelope;
+    connect?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+};
+export type CandidateEvaluationUncheckedCreateNestedManyWithoutJobInput = {
+    create?: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutJobInput, Prisma.CandidateEvaluationUncheckedCreateWithoutJobInput> | Prisma.CandidateEvaluationCreateWithoutJobInput[] | Prisma.CandidateEvaluationUncheckedCreateWithoutJobInput[];
+    connectOrCreate?: Prisma.CandidateEvaluationCreateOrConnectWithoutJobInput | Prisma.CandidateEvaluationCreateOrConnectWithoutJobInput[];
+    createMany?: Prisma.CandidateEvaluationCreateManyJobInputEnvelope;
+    connect?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+};
+export type CandidateEvaluationUpdateManyWithoutJobNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutJobInput, Prisma.CandidateEvaluationUncheckedCreateWithoutJobInput> | Prisma.CandidateEvaluationCreateWithoutJobInput[] | Prisma.CandidateEvaluationUncheckedCreateWithoutJobInput[];
+    connectOrCreate?: Prisma.CandidateEvaluationCreateOrConnectWithoutJobInput | Prisma.CandidateEvaluationCreateOrConnectWithoutJobInput[];
+    upsert?: Prisma.CandidateEvaluationUpsertWithWhereUniqueWithoutJobInput | Prisma.CandidateEvaluationUpsertWithWhereUniqueWithoutJobInput[];
+    createMany?: Prisma.CandidateEvaluationCreateManyJobInputEnvelope;
+    set?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    disconnect?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    delete?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    connect?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    update?: Prisma.CandidateEvaluationUpdateWithWhereUniqueWithoutJobInput | Prisma.CandidateEvaluationUpdateWithWhereUniqueWithoutJobInput[];
+    updateMany?: Prisma.CandidateEvaluationUpdateManyWithWhereWithoutJobInput | Prisma.CandidateEvaluationUpdateManyWithWhereWithoutJobInput[];
+    deleteMany?: Prisma.CandidateEvaluationScalarWhereInput | Prisma.CandidateEvaluationScalarWhereInput[];
+};
+export type CandidateEvaluationUncheckedUpdateManyWithoutJobNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutJobInput, Prisma.CandidateEvaluationUncheckedCreateWithoutJobInput> | Prisma.CandidateEvaluationCreateWithoutJobInput[] | Prisma.CandidateEvaluationUncheckedCreateWithoutJobInput[];
+    connectOrCreate?: Prisma.CandidateEvaluationCreateOrConnectWithoutJobInput | Prisma.CandidateEvaluationCreateOrConnectWithoutJobInput[];
+    upsert?: Prisma.CandidateEvaluationUpsertWithWhereUniqueWithoutJobInput | Prisma.CandidateEvaluationUpsertWithWhereUniqueWithoutJobInput[];
+    createMany?: Prisma.CandidateEvaluationCreateManyJobInputEnvelope;
+    set?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    disconnect?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    delete?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    connect?: Prisma.CandidateEvaluationWhereUniqueInput | Prisma.CandidateEvaluationWhereUniqueInput[];
+    update?: Prisma.CandidateEvaluationUpdateWithWhereUniqueWithoutJobInput | Prisma.CandidateEvaluationUpdateWithWhereUniqueWithoutJobInput[];
+    updateMany?: Prisma.CandidateEvaluationUpdateManyWithWhereWithoutJobInput | Prisma.CandidateEvaluationUpdateManyWithWhereWithoutJobInput[];
+    deleteMany?: Prisma.CandidateEvaluationScalarWhereInput | Prisma.CandidateEvaluationScalarWhereInput[];
+};
+export type CandidateEvaluationCreateNestedOneWithoutApplicationInput = {
+    create?: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutApplicationInput, Prisma.CandidateEvaluationUncheckedCreateWithoutApplicationInput>;
+    connectOrCreate?: Prisma.CandidateEvaluationCreateOrConnectWithoutApplicationInput;
+    connect?: Prisma.CandidateEvaluationWhereUniqueInput;
+};
+export type CandidateEvaluationUncheckedCreateNestedOneWithoutApplicationInput = {
+    create?: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutApplicationInput, Prisma.CandidateEvaluationUncheckedCreateWithoutApplicationInput>;
+    connectOrCreate?: Prisma.CandidateEvaluationCreateOrConnectWithoutApplicationInput;
+    connect?: Prisma.CandidateEvaluationWhereUniqueInput;
+};
+export type CandidateEvaluationUpdateOneWithoutApplicationNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutApplicationInput, Prisma.CandidateEvaluationUncheckedCreateWithoutApplicationInput>;
+    connectOrCreate?: Prisma.CandidateEvaluationCreateOrConnectWithoutApplicationInput;
+    upsert?: Prisma.CandidateEvaluationUpsertWithoutApplicationInput;
+    disconnect?: Prisma.CandidateEvaluationWhereInput | boolean;
+    delete?: Prisma.CandidateEvaluationWhereInput | boolean;
+    connect?: Prisma.CandidateEvaluationWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateEvaluationUpdateToOneWithWhereWithoutApplicationInput, Prisma.CandidateEvaluationUpdateWithoutApplicationInput>, Prisma.CandidateEvaluationUncheckedUpdateWithoutApplicationInput>;
+};
+export type CandidateEvaluationUncheckedUpdateOneWithoutApplicationNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutApplicationInput, Prisma.CandidateEvaluationUncheckedCreateWithoutApplicationInput>;
+    connectOrCreate?: Prisma.CandidateEvaluationCreateOrConnectWithoutApplicationInput;
+    upsert?: Prisma.CandidateEvaluationUpsertWithoutApplicationInput;
+    disconnect?: Prisma.CandidateEvaluationWhereInput | boolean;
+    delete?: Prisma.CandidateEvaluationWhereInput | boolean;
+    connect?: Prisma.CandidateEvaluationWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateEvaluationUpdateToOneWithWhereWithoutApplicationInput, Prisma.CandidateEvaluationUpdateWithoutApplicationInput>, Prisma.CandidateEvaluationUncheckedUpdateWithoutApplicationInput>;
+};
+export type CandidateEvaluationCreatematchedSkillsInput = {
+    set: string[];
+};
+export type CandidateEvaluationCreatemissingSkillsInput = {
+    set: string[];
+};
+export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null;
+    increment?: number;
+    decrement?: number;
+    multiply?: number;
+    divide?: number;
+};
+export type CandidateEvaluationUpdatematchedSkillsInput = {
+    set?: string[];
+    push?: string | string[];
+};
+export type CandidateEvaluationUpdatemissingSkillsInput = {
+    set?: string[];
+    push?: string | string[];
+};
+export type CandidateEvaluationCreateWithoutCandidateInput = {
+    id?: string;
+    overallScore?: number | null;
+    semanticScore?: number | null;
+    skillScore?: number | null;
+    experienceScore?: number | null;
+    matchedSkills?: Prisma.CandidateEvaluationCreatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationCreatemissingSkillsInput | string[];
+    summary?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    application: Prisma.ApplicationCreateNestedOneWithoutEvaluationInput;
+    job: Prisma.JobCreateNestedOneWithoutEvaluationsInput;
+};
+export type CandidateEvaluationUncheckedCreateWithoutCandidateInput = {
+    id?: string;
+    jobId: string;
+    applicationId: string;
+    overallScore?: number | null;
+    semanticScore?: number | null;
+    skillScore?: number | null;
+    experienceScore?: number | null;
+    matchedSkills?: Prisma.CandidateEvaluationCreatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationCreatemissingSkillsInput | string[];
+    summary?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type CandidateEvaluationCreateOrConnectWithoutCandidateInput = {
+    where: Prisma.CandidateEvaluationWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutCandidateInput, Prisma.CandidateEvaluationUncheckedCreateWithoutCandidateInput>;
+};
+export type CandidateEvaluationCreateManyCandidateInputEnvelope = {
+    data: Prisma.CandidateEvaluationCreateManyCandidateInput | Prisma.CandidateEvaluationCreateManyCandidateInput[];
+    skipDuplicates?: boolean;
+};
+export type CandidateEvaluationUpsertWithWhereUniqueWithoutCandidateInput = {
+    where: Prisma.CandidateEvaluationWhereUniqueInput;
+    update: Prisma.XOR<Prisma.CandidateEvaluationUpdateWithoutCandidateInput, Prisma.CandidateEvaluationUncheckedUpdateWithoutCandidateInput>;
+    create: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutCandidateInput, Prisma.CandidateEvaluationUncheckedCreateWithoutCandidateInput>;
+};
+export type CandidateEvaluationUpdateWithWhereUniqueWithoutCandidateInput = {
+    where: Prisma.CandidateEvaluationWhereUniqueInput;
+    data: Prisma.XOR<Prisma.CandidateEvaluationUpdateWithoutCandidateInput, Prisma.CandidateEvaluationUncheckedUpdateWithoutCandidateInput>;
+};
+export type CandidateEvaluationUpdateManyWithWhereWithoutCandidateInput = {
+    where: Prisma.CandidateEvaluationScalarWhereInput;
+    data: Prisma.XOR<Prisma.CandidateEvaluationUpdateManyMutationInput, Prisma.CandidateEvaluationUncheckedUpdateManyWithoutCandidateInput>;
+};
+export type CandidateEvaluationScalarWhereInput = {
+    AND?: Prisma.CandidateEvaluationScalarWhereInput | Prisma.CandidateEvaluationScalarWhereInput[];
+    OR?: Prisma.CandidateEvaluationScalarWhereInput[];
+    NOT?: Prisma.CandidateEvaluationScalarWhereInput | Prisma.CandidateEvaluationScalarWhereInput[];
+    id?: Prisma.StringFilter<"CandidateEvaluation"> | string;
+    candidateId?: Prisma.StringFilter<"CandidateEvaluation"> | string;
+    jobId?: Prisma.StringFilter<"CandidateEvaluation"> | string;
+    applicationId?: Prisma.StringFilter<"CandidateEvaluation"> | string;
+    overallScore?: Prisma.FloatNullableFilter<"CandidateEvaluation"> | number | null;
+    semanticScore?: Prisma.FloatNullableFilter<"CandidateEvaluation"> | number | null;
+    skillScore?: Prisma.FloatNullableFilter<"CandidateEvaluation"> | number | null;
+    experienceScore?: Prisma.FloatNullableFilter<"CandidateEvaluation"> | number | null;
+    matchedSkills?: Prisma.StringNullableListFilter<"CandidateEvaluation">;
+    missingSkills?: Prisma.StringNullableListFilter<"CandidateEvaluation">;
+    summary?: Prisma.StringNullableFilter<"CandidateEvaluation"> | string | null;
+    createdAt?: Prisma.DateTimeFilter<"CandidateEvaluation"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"CandidateEvaluation"> | Date | string;
+};
+export type CandidateEvaluationCreateWithoutJobInput = {
+    id?: string;
+    overallScore?: number | null;
+    semanticScore?: number | null;
+    skillScore?: number | null;
+    experienceScore?: number | null;
+    matchedSkills?: Prisma.CandidateEvaluationCreatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationCreatemissingSkillsInput | string[];
+    summary?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    application: Prisma.ApplicationCreateNestedOneWithoutEvaluationInput;
+    candidate: Prisma.CandidateProfileCreateNestedOneWithoutEvaluationsInput;
+};
+export type CandidateEvaluationUncheckedCreateWithoutJobInput = {
+    id?: string;
+    candidateId: string;
+    applicationId: string;
+    overallScore?: number | null;
+    semanticScore?: number | null;
+    skillScore?: number | null;
+    experienceScore?: number | null;
+    matchedSkills?: Prisma.CandidateEvaluationCreatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationCreatemissingSkillsInput | string[];
+    summary?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type CandidateEvaluationCreateOrConnectWithoutJobInput = {
+    where: Prisma.CandidateEvaluationWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutJobInput, Prisma.CandidateEvaluationUncheckedCreateWithoutJobInput>;
+};
+export type CandidateEvaluationCreateManyJobInputEnvelope = {
+    data: Prisma.CandidateEvaluationCreateManyJobInput | Prisma.CandidateEvaluationCreateManyJobInput[];
+    skipDuplicates?: boolean;
+};
+export type CandidateEvaluationUpsertWithWhereUniqueWithoutJobInput = {
+    where: Prisma.CandidateEvaluationWhereUniqueInput;
+    update: Prisma.XOR<Prisma.CandidateEvaluationUpdateWithoutJobInput, Prisma.CandidateEvaluationUncheckedUpdateWithoutJobInput>;
+    create: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutJobInput, Prisma.CandidateEvaluationUncheckedCreateWithoutJobInput>;
+};
+export type CandidateEvaluationUpdateWithWhereUniqueWithoutJobInput = {
+    where: Prisma.CandidateEvaluationWhereUniqueInput;
+    data: Prisma.XOR<Prisma.CandidateEvaluationUpdateWithoutJobInput, Prisma.CandidateEvaluationUncheckedUpdateWithoutJobInput>;
+};
+export type CandidateEvaluationUpdateManyWithWhereWithoutJobInput = {
+    where: Prisma.CandidateEvaluationScalarWhereInput;
+    data: Prisma.XOR<Prisma.CandidateEvaluationUpdateManyMutationInput, Prisma.CandidateEvaluationUncheckedUpdateManyWithoutJobInput>;
+};
+export type CandidateEvaluationCreateWithoutApplicationInput = {
+    id?: string;
+    overallScore?: number | null;
+    semanticScore?: number | null;
+    skillScore?: number | null;
+    experienceScore?: number | null;
+    matchedSkills?: Prisma.CandidateEvaluationCreatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationCreatemissingSkillsInput | string[];
+    summary?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    candidate: Prisma.CandidateProfileCreateNestedOneWithoutEvaluationsInput;
+    job: Prisma.JobCreateNestedOneWithoutEvaluationsInput;
+};
+export type CandidateEvaluationUncheckedCreateWithoutApplicationInput = {
+    id?: string;
+    candidateId: string;
+    jobId: string;
+    overallScore?: number | null;
+    semanticScore?: number | null;
+    skillScore?: number | null;
+    experienceScore?: number | null;
+    matchedSkills?: Prisma.CandidateEvaluationCreatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationCreatemissingSkillsInput | string[];
+    summary?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type CandidateEvaluationCreateOrConnectWithoutApplicationInput = {
+    where: Prisma.CandidateEvaluationWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutApplicationInput, Prisma.CandidateEvaluationUncheckedCreateWithoutApplicationInput>;
+};
+export type CandidateEvaluationUpsertWithoutApplicationInput = {
+    update: Prisma.XOR<Prisma.CandidateEvaluationUpdateWithoutApplicationInput, Prisma.CandidateEvaluationUncheckedUpdateWithoutApplicationInput>;
+    create: Prisma.XOR<Prisma.CandidateEvaluationCreateWithoutApplicationInput, Prisma.CandidateEvaluationUncheckedCreateWithoutApplicationInput>;
+    where?: Prisma.CandidateEvaluationWhereInput;
+};
+export type CandidateEvaluationUpdateToOneWithWhereWithoutApplicationInput = {
+    where?: Prisma.CandidateEvaluationWhereInput;
+    data: Prisma.XOR<Prisma.CandidateEvaluationUpdateWithoutApplicationInput, Prisma.CandidateEvaluationUncheckedUpdateWithoutApplicationInput>;
+};
+export type CandidateEvaluationUpdateWithoutApplicationInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    semanticScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    skillScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    experienceScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    matchedSkills?: Prisma.CandidateEvaluationUpdatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationUpdatemissingSkillsInput | string[];
+    summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    candidate?: Prisma.CandidateProfileUpdateOneRequiredWithoutEvaluationsNestedInput;
+    job?: Prisma.JobUpdateOneRequiredWithoutEvaluationsNestedInput;
+};
+export type CandidateEvaluationUncheckedUpdateWithoutApplicationInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateId?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    semanticScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    skillScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    experienceScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    matchedSkills?: Prisma.CandidateEvaluationUpdatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationUpdatemissingSkillsInput | string[];
+    summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type CandidateEvaluationCreateManyCandidateInput = {
+    id?: string;
+    jobId: string;
+    applicationId: string;
+    overallScore?: number | null;
+    semanticScore?: number | null;
+    skillScore?: number | null;
+    experienceScore?: number | null;
+    matchedSkills?: Prisma.CandidateEvaluationCreatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationCreatemissingSkillsInput | string[];
+    summary?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type CandidateEvaluationUpdateWithoutCandidateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    semanticScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    skillScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    experienceScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    matchedSkills?: Prisma.CandidateEvaluationUpdatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationUpdatemissingSkillsInput | string[];
+    summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    application?: Prisma.ApplicationUpdateOneRequiredWithoutEvaluationNestedInput;
+    job?: Prisma.JobUpdateOneRequiredWithoutEvaluationsNestedInput;
+};
+export type CandidateEvaluationUncheckedUpdateWithoutCandidateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    applicationId?: Prisma.StringFieldUpdateOperationsInput | string;
+    overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    semanticScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    skillScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    experienceScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    matchedSkills?: Prisma.CandidateEvaluationUpdatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationUpdatemissingSkillsInput | string[];
+    summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type CandidateEvaluationUncheckedUpdateManyWithoutCandidateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    applicationId?: Prisma.StringFieldUpdateOperationsInput | string;
+    overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    semanticScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    skillScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    experienceScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    matchedSkills?: Prisma.CandidateEvaluationUpdatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationUpdatemissingSkillsInput | string[];
+    summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type CandidateEvaluationCreateManyJobInput = {
+    id?: string;
+    candidateId: string;
+    applicationId: string;
+    overallScore?: number | null;
+    semanticScore?: number | null;
+    skillScore?: number | null;
+    experienceScore?: number | null;
+    matchedSkills?: Prisma.CandidateEvaluationCreatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationCreatemissingSkillsInput | string[];
+    summary?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type CandidateEvaluationUpdateWithoutJobInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    semanticScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    skillScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    experienceScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    matchedSkills?: Prisma.CandidateEvaluationUpdatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationUpdatemissingSkillsInput | string[];
+    summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    application?: Prisma.ApplicationUpdateOneRequiredWithoutEvaluationNestedInput;
+    candidate?: Prisma.CandidateProfileUpdateOneRequiredWithoutEvaluationsNestedInput;
+};
+export type CandidateEvaluationUncheckedUpdateWithoutJobInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateId?: Prisma.StringFieldUpdateOperationsInput | string;
+    applicationId?: Prisma.StringFieldUpdateOperationsInput | string;
+    overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    semanticScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    skillScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    experienceScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    matchedSkills?: Prisma.CandidateEvaluationUpdatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationUpdatemissingSkillsInput | string[];
+    summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type CandidateEvaluationUncheckedUpdateManyWithoutJobInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateId?: Prisma.StringFieldUpdateOperationsInput | string;
+    applicationId?: Prisma.StringFieldUpdateOperationsInput | string;
+    overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    semanticScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    skillScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    experienceScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+    matchedSkills?: Prisma.CandidateEvaluationUpdatematchedSkillsInput | string[];
+    missingSkills?: Prisma.CandidateEvaluationUpdatemissingSkillsInput | string[];
+    summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type CandidateEvaluationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    candidateId?: boolean;
+    jobId?: boolean;
+    applicationId?: boolean;
+    overallScore?: boolean;
+    semanticScore?: boolean;
+    skillScore?: boolean;
+    experienceScore?: boolean;
+    matchedSkills?: boolean;
+    missingSkills?: boolean;
+    summary?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>;
+    candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>;
+    job?: boolean | Prisma.JobDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["candidateEvaluation"]>;
+export type CandidateEvaluationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    candidateId?: boolean;
+    jobId?: boolean;
+    applicationId?: boolean;
+    overallScore?: boolean;
+    semanticScore?: boolean;
+    skillScore?: boolean;
+    experienceScore?: boolean;
+    matchedSkills?: boolean;
+    missingSkills?: boolean;
+    summary?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>;
+    candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>;
+    job?: boolean | Prisma.JobDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["candidateEvaluation"]>;
+export type CandidateEvaluationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    candidateId?: boolean;
+    jobId?: boolean;
+    applicationId?: boolean;
+    overallScore?: boolean;
+    semanticScore?: boolean;
+    skillScore?: boolean;
+    experienceScore?: boolean;
+    matchedSkills?: boolean;
+    missingSkills?: boolean;
+    summary?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>;
+    candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>;
+    job?: boolean | Prisma.JobDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["candidateEvaluation"]>;
+export type CandidateEvaluationSelectScalar = {
+    id?: boolean;
+    candidateId?: boolean;
+    jobId?: boolean;
+    applicationId?: boolean;
+    overallScore?: boolean;
+    semanticScore?: boolean;
+    skillScore?: boolean;
+    experienceScore?: boolean;
+    matchedSkills?: boolean;
+    missingSkills?: boolean;
+    summary?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+};
+export type CandidateEvaluationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "candidateId" | "jobId" | "applicationId" | "overallScore" | "semanticScore" | "skillScore" | "experienceScore" | "matchedSkills" | "missingSkills" | "summary" | "createdAt" | "updatedAt", ExtArgs["result"]["candidateEvaluation"]>;
+export type CandidateEvaluationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>;
+    candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>;
+    job?: boolean | Prisma.JobDefaultArgs<ExtArgs>;
+};
+export type CandidateEvaluationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>;
+    candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>;
+    job?: boolean | Prisma.JobDefaultArgs<ExtArgs>;
+};
+export type CandidateEvaluationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>;
+    candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>;
+    job?: boolean | Prisma.JobDefaultArgs<ExtArgs>;
+};
+export type $CandidateEvaluationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "CandidateEvaluation";
+    objects: {
+        application: Prisma.$ApplicationPayload<ExtArgs>;
+        candidate: Prisma.$CandidateProfilePayload<ExtArgs>;
+        job: Prisma.$JobPayload<ExtArgs>;
+    };
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        id: string;
+        candidateId: string;
+        jobId: string;
+        applicationId: string;
+        overallScore: number | null;
+        semanticScore: number | null;
+        skillScore: number | null;
+        experienceScore: number | null;
+        matchedSkills: string[];
+        missingSkills: string[];
+        summary: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+    }, ExtArgs["result"]["candidateEvaluation"]>;
+    composites: {};
+};
+export type CandidateEvaluationGetPayload<S extends boolean | null | undefined | CandidateEvaluationDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$CandidateEvaluationPayload, S>;
+export type CandidateEvaluationCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<CandidateEvaluationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: CandidateEvaluationCountAggregateInputType | true;
+};
+export interface CandidateEvaluationDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['CandidateEvaluation'];
+        meta: {
+            name: 'CandidateEvaluation';
+        };
+    };
+    /**
+     * Find zero or one CandidateEvaluation that matches the filter.
+     * @param {CandidateEvaluationFindUniqueArgs} args - Arguments to find a CandidateEvaluation
+     * @example
+     * // Get one CandidateEvaluation
+     * const candidateEvaluation = await prisma.candidateEvaluation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CandidateEvaluationFindUniqueArgs>(args: Prisma.SelectSubset<T, CandidateEvaluationFindUniqueArgs<ExtArgs>>): Prisma.Prisma__CandidateEvaluationClient<runtime.Types.Result.GetResult<Prisma.$CandidateEvaluationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one CandidateEvaluation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CandidateEvaluationFindUniqueOrThrowArgs} args - Arguments to find a CandidateEvaluation
+     * @example
+     * // Get one CandidateEvaluation
+     * const candidateEvaluation = await prisma.candidateEvaluation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CandidateEvaluationFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, CandidateEvaluationFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__CandidateEvaluationClient<runtime.Types.Result.GetResult<Prisma.$CandidateEvaluationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first CandidateEvaluation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CandidateEvaluationFindFirstArgs} args - Arguments to find a CandidateEvaluation
+     * @example
+     * // Get one CandidateEvaluation
+     * const candidateEvaluation = await prisma.candidateEvaluation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CandidateEvaluationFindFirstArgs>(args?: Prisma.SelectSubset<T, CandidateEvaluationFindFirstArgs<ExtArgs>>): Prisma.Prisma__CandidateEvaluationClient<runtime.Types.Result.GetResult<Prisma.$CandidateEvaluationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first CandidateEvaluation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CandidateEvaluationFindFirstOrThrowArgs} args - Arguments to find a CandidateEvaluation
+     * @example
+     * // Get one CandidateEvaluation
+     * const candidateEvaluation = await prisma.candidateEvaluation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CandidateEvaluationFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, CandidateEvaluationFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__CandidateEvaluationClient<runtime.Types.Result.GetResult<Prisma.$CandidateEvaluationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more CandidateEvaluations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CandidateEvaluationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CandidateEvaluations
+     * const candidateEvaluations = await prisma.candidateEvaluation.findMany()
+     *
+     * // Get first 10 CandidateEvaluations
+     * const candidateEvaluations = await prisma.candidateEvaluation.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const candidateEvaluationWithIdOnly = await prisma.candidateEvaluation.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends CandidateEvaluationFindManyArgs>(args?: Prisma.SelectSubset<T, CandidateEvaluationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CandidateEvaluationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a CandidateEvaluation.
+     * @param {CandidateEvaluationCreateArgs} args - Arguments to create a CandidateEvaluation.
+     * @example
+     * // Create one CandidateEvaluation
+     * const CandidateEvaluation = await prisma.candidateEvaluation.create({
+     *   data: {
+     *     // ... data to create a CandidateEvaluation
+     *   }
+     * })
+     *
+     */
+    create<T extends CandidateEvaluationCreateArgs>(args: Prisma.SelectSubset<T, CandidateEvaluationCreateArgs<ExtArgs>>): Prisma.Prisma__CandidateEvaluationClient<runtime.Types.Result.GetResult<Prisma.$CandidateEvaluationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many CandidateEvaluations.
+     * @param {CandidateEvaluationCreateManyArgs} args - Arguments to create many CandidateEvaluations.
+     * @example
+     * // Create many CandidateEvaluations
+     * const candidateEvaluation = await prisma.candidateEvaluation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends CandidateEvaluationCreateManyArgs>(args?: Prisma.SelectSubset<T, CandidateEvaluationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many CandidateEvaluations and returns the data saved in the database.
+     * @param {CandidateEvaluationCreateManyAndReturnArgs} args - Arguments to create many CandidateEvaluations.
+     * @example
+     * // Create many CandidateEvaluations
+     * const candidateEvaluation = await prisma.candidateEvaluation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many CandidateEvaluations and only return the `id`
+     * const candidateEvaluationWithIdOnly = await prisma.candidateEvaluation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends CandidateEvaluationCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CandidateEvaluationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CandidateEvaluationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a CandidateEvaluation.
+     * @param {CandidateEvaluationDeleteArgs} args - Arguments to delete one CandidateEvaluation.
+     * @example
+     * // Delete one CandidateEvaluation
+     * const CandidateEvaluation = await prisma.candidateEvaluation.delete({
+     *   where: {
+     *     // ... filter to delete one CandidateEvaluation
+     *   }
+     * })
+     *
+     */
+    delete<T extends CandidateEvaluationDeleteArgs>(args: Prisma.SelectSubset<T, CandidateEvaluationDeleteArgs<ExtArgs>>): Prisma.Prisma__CandidateEvaluationClient<runtime.Types.Result.GetResult<Prisma.$CandidateEvaluationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one CandidateEvaluation.
+     * @param {CandidateEvaluationUpdateArgs} args - Arguments to update one CandidateEvaluation.
+     * @example
+     * // Update one CandidateEvaluation
+     * const candidateEvaluation = await prisma.candidateEvaluation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends CandidateEvaluationUpdateArgs>(args: Prisma.SelectSubset<T, CandidateEvaluationUpdateArgs<ExtArgs>>): Prisma.Prisma__CandidateEvaluationClient<runtime.Types.Result.GetResult<Prisma.$CandidateEvaluationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more CandidateEvaluations.
+     * @param {CandidateEvaluationDeleteManyArgs} args - Arguments to filter CandidateEvaluations to delete.
+     * @example
+     * // Delete a few CandidateEvaluations
+     * const { count } = await prisma.candidateEvaluation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends CandidateEvaluationDeleteManyArgs>(args?: Prisma.SelectSubset<T, CandidateEvaluationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more CandidateEvaluations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CandidateEvaluationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CandidateEvaluations
+     * const candidateEvaluation = await prisma.candidateEvaluation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends CandidateEvaluationUpdateManyArgs>(args: Prisma.SelectSubset<T, CandidateEvaluationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more CandidateEvaluations and returns the data updated in the database.
+     * @param {CandidateEvaluationUpdateManyAndReturnArgs} args - Arguments to update many CandidateEvaluations.
+     * @example
+     * // Update many CandidateEvaluations
+     * const candidateEvaluation = await prisma.candidateEvaluation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more CandidateEvaluations and only return the `id`
+     * const candidateEvaluationWithIdOnly = await prisma.candidateEvaluation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends CandidateEvaluationUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CandidateEvaluationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CandidateEvaluationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one CandidateEvaluation.
+     * @param {CandidateEvaluationUpsertArgs} args - Arguments to update or create a CandidateEvaluation.
+     * @example
+     * // Update or create a CandidateEvaluation
+     * const candidateEvaluation = await prisma.candidateEvaluation.upsert({
+     *   create: {
+     *     // ... data to create a CandidateEvaluation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CandidateEvaluation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CandidateEvaluationUpsertArgs>(args: Prisma.SelectSubset<T, CandidateEvaluationUpsertArgs<ExtArgs>>): Prisma.Prisma__CandidateEvaluationClient<runtime.Types.Result.GetResult<Prisma.$CandidateEvaluationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of CandidateEvaluations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CandidateEvaluationCountArgs} args - Arguments to filter CandidateEvaluations to count.
+     * @example
+     * // Count the number of CandidateEvaluations
+     * const count = await prisma.candidateEvaluation.count({
+     *   where: {
+     *     // ... the filter for the CandidateEvaluations we want to count
+     *   }
+     * })
+    **/
+    count<T extends CandidateEvaluationCountArgs>(args?: Prisma.Subset<T, CandidateEvaluationCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], CandidateEvaluationCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a CandidateEvaluation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CandidateEvaluationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CandidateEvaluationAggregateArgs>(args: Prisma.Subset<T, CandidateEvaluationAggregateArgs>): Prisma.PrismaPromise<GetCandidateEvaluationAggregateType<T>>;
+    /**
+     * Group by CandidateEvaluation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CandidateEvaluationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends CandidateEvaluationGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: CandidateEvaluationGroupByArgs['orderBy'];
+    } : {
+        orderBy?: CandidateEvaluationGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, CandidateEvaluationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCandidateEvaluationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the CandidateEvaluation model
+     */
+    readonly fields: CandidateEvaluationFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for CandidateEvaluation.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__CandidateEvaluationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    application<T extends Prisma.ApplicationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ApplicationDefaultArgs<ExtArgs>>): Prisma.Prisma__ApplicationClient<runtime.Types.Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    candidate<T extends Prisma.CandidateProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    job<T extends Prisma.JobDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobDefaultArgs<ExtArgs>>): Prisma.Prisma__JobClient<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the CandidateEvaluation model
+ */
+export interface CandidateEvaluationFieldRefs {
+    readonly id: Prisma.FieldRef<"CandidateEvaluation", 'String'>;
+    readonly candidateId: Prisma.FieldRef<"CandidateEvaluation", 'String'>;
+    readonly jobId: Prisma.FieldRef<"CandidateEvaluation", 'String'>;
+    readonly applicationId: Prisma.FieldRef<"CandidateEvaluation", 'String'>;
+    readonly overallScore: Prisma.FieldRef<"CandidateEvaluation", 'Float'>;
+    readonly semanticScore: Prisma.FieldRef<"CandidateEvaluation", 'Float'>;
+    readonly skillScore: Prisma.FieldRef<"CandidateEvaluation", 'Float'>;
+    readonly experienceScore: Prisma.FieldRef<"CandidateEvaluation", 'Float'>;
+    readonly matchedSkills: Prisma.FieldRef<"CandidateEvaluation", 'String[]'>;
+    readonly missingSkills: Prisma.FieldRef<"CandidateEvaluation", 'String[]'>;
+    readonly summary: Prisma.FieldRef<"CandidateEvaluation", 'String'>;
+    readonly createdAt: Prisma.FieldRef<"CandidateEvaluation", 'DateTime'>;
+    readonly updatedAt: Prisma.FieldRef<"CandidateEvaluation", 'DateTime'>;
+}
+/**
+ * CandidateEvaluation findUnique
+ */
+export type CandidateEvaluationFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateEvaluation
+     */
+    select?: Prisma.CandidateEvaluationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateEvaluation
+     */
+    omit?: Prisma.CandidateEvaluationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateEvaluationInclude<ExtArgs> | null;
+    /**
+     * Filter, which CandidateEvaluation to fetch.
+     */
+    where: Prisma.CandidateEvaluationWhereUniqueInput;
+};
+/**
+ * CandidateEvaluation findUniqueOrThrow
+ */
+export type CandidateEvaluationFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateEvaluation
+     */
+    select?: Prisma.CandidateEvaluationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateEvaluation
+     */
+    omit?: Prisma.CandidateEvaluationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateEvaluationInclude<ExtArgs> | null;
+    /**
+     * Filter, which CandidateEvaluation to fetch.
+     */
+    where: Prisma.CandidateEvaluationWhereUniqueInput;
+};
+/**
+ * CandidateEvaluation findFirst
+ */
+export type CandidateEvaluationFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateEvaluation
+     */
+    select?: Prisma.CandidateEvaluationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateEvaluation
+     */
+    omit?: Prisma.CandidateEvaluationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateEvaluationInclude<ExtArgs> | null;
+    /**
+     * Filter, which CandidateEvaluation to fetch.
+     */
+    where?: Prisma.CandidateEvaluationWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CandidateEvaluations to fetch.
+     */
+    orderBy?: Prisma.CandidateEvaluationOrderByWithRelationInput | Prisma.CandidateEvaluationOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for CandidateEvaluations.
+     */
+    cursor?: Prisma.CandidateEvaluationWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CandidateEvaluations from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CandidateEvaluations.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of CandidateEvaluations.
+     */
+    distinct?: Prisma.CandidateEvaluationScalarFieldEnum | Prisma.CandidateEvaluationScalarFieldEnum[];
+};
+/**
+ * CandidateEvaluation findFirstOrThrow
+ */
+export type CandidateEvaluationFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateEvaluation
+     */
+    select?: Prisma.CandidateEvaluationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateEvaluation
+     */
+    omit?: Prisma.CandidateEvaluationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateEvaluationInclude<ExtArgs> | null;
+    /**
+     * Filter, which CandidateEvaluation to fetch.
+     */
+    where?: Prisma.CandidateEvaluationWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CandidateEvaluations to fetch.
+     */
+    orderBy?: Prisma.CandidateEvaluationOrderByWithRelationInput | Prisma.CandidateEvaluationOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for CandidateEvaluations.
+     */
+    cursor?: Prisma.CandidateEvaluationWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CandidateEvaluations from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CandidateEvaluations.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of CandidateEvaluations.
+     */
+    distinct?: Prisma.CandidateEvaluationScalarFieldEnum | Prisma.CandidateEvaluationScalarFieldEnum[];
+};
+/**
+ * CandidateEvaluation findMany
+ */
+export type CandidateEvaluationFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateEvaluation
+     */
+    select?: Prisma.CandidateEvaluationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateEvaluation
+     */
+    omit?: Prisma.CandidateEvaluationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateEvaluationInclude<ExtArgs> | null;
+    /**
+     * Filter, which CandidateEvaluations to fetch.
+     */
+    where?: Prisma.CandidateEvaluationWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CandidateEvaluations to fetch.
+     */
+    orderBy?: Prisma.CandidateEvaluationOrderByWithRelationInput | Prisma.CandidateEvaluationOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing CandidateEvaluations.
+     */
+    cursor?: Prisma.CandidateEvaluationWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CandidateEvaluations from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CandidateEvaluations.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of CandidateEvaluations.
+     */
+    distinct?: Prisma.CandidateEvaluationScalarFieldEnum | Prisma.CandidateEvaluationScalarFieldEnum[];
+};
+/**
+ * CandidateEvaluation create
+ */
+export type CandidateEvaluationCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateEvaluation
+     */
+    select?: Prisma.CandidateEvaluationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateEvaluation
+     */
+    omit?: Prisma.CandidateEvaluationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateEvaluationInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a CandidateEvaluation.
+     */
+    data: Prisma.XOR<Prisma.CandidateEvaluationCreateInput, Prisma.CandidateEvaluationUncheckedCreateInput>;
+};
+/**
+ * CandidateEvaluation createMany
+ */
+export type CandidateEvaluationCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CandidateEvaluations.
+     */
+    data: Prisma.CandidateEvaluationCreateManyInput | Prisma.CandidateEvaluationCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * CandidateEvaluation createManyAndReturn
+ */
+export type CandidateEvaluationCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateEvaluation
+     */
+    select?: Prisma.CandidateEvaluationSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateEvaluation
+     */
+    omit?: Prisma.CandidateEvaluationOmit<ExtArgs> | null;
+    /**
+     * The data used to create many CandidateEvaluations.
+     */
+    data: Prisma.CandidateEvaluationCreateManyInput | Prisma.CandidateEvaluationCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateEvaluationIncludeCreateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * CandidateEvaluation update
+ */
+export type CandidateEvaluationUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateEvaluation
+     */
+    select?: Prisma.CandidateEvaluationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateEvaluation
+     */
+    omit?: Prisma.CandidateEvaluationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateEvaluationInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a CandidateEvaluation.
+     */
+    data: Prisma.XOR<Prisma.CandidateEvaluationUpdateInput, Prisma.CandidateEvaluationUncheckedUpdateInput>;
+    /**
+     * Choose, which CandidateEvaluation to update.
+     */
+    where: Prisma.CandidateEvaluationWhereUniqueInput;
+};
+/**
+ * CandidateEvaluation updateMany
+ */
+export type CandidateEvaluationUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CandidateEvaluations.
+     */
+    data: Prisma.XOR<Prisma.CandidateEvaluationUpdateManyMutationInput, Prisma.CandidateEvaluationUncheckedUpdateManyInput>;
+    /**
+     * Filter which CandidateEvaluations to update
+     */
+    where?: Prisma.CandidateEvaluationWhereInput;
+    /**
+     * Limit how many CandidateEvaluations to update.
+     */
+    limit?: number;
+};
+/**
+ * CandidateEvaluation updateManyAndReturn
+ */
+export type CandidateEvaluationUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateEvaluation
+     */
+    select?: Prisma.CandidateEvaluationSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateEvaluation
+     */
+    omit?: Prisma.CandidateEvaluationOmit<ExtArgs> | null;
+    /**
+     * The data used to update CandidateEvaluations.
+     */
+    data: Prisma.XOR<Prisma.CandidateEvaluationUpdateManyMutationInput, Prisma.CandidateEvaluationUncheckedUpdateManyInput>;
+    /**
+     * Filter which CandidateEvaluations to update
+     */
+    where?: Prisma.CandidateEvaluationWhereInput;
+    /**
+     * Limit how many CandidateEvaluations to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateEvaluationIncludeUpdateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * CandidateEvaluation upsert
+ */
+export type CandidateEvaluationUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateEvaluation
+     */
+    select?: Prisma.CandidateEvaluationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateEvaluation
+     */
+    omit?: Prisma.CandidateEvaluationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateEvaluationInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the CandidateEvaluation to update in case it exists.
+     */
+    where: Prisma.CandidateEvaluationWhereUniqueInput;
+    /**
+     * In case the CandidateEvaluation found by the `where` argument doesn't exist, create a new CandidateEvaluation with this data.
+     */
+    create: Prisma.XOR<Prisma.CandidateEvaluationCreateInput, Prisma.CandidateEvaluationUncheckedCreateInput>;
+    /**
+     * In case the CandidateEvaluation was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.CandidateEvaluationUpdateInput, Prisma.CandidateEvaluationUncheckedUpdateInput>;
+};
+/**
+ * CandidateEvaluation delete
+ */
+export type CandidateEvaluationDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateEvaluation
+     */
+    select?: Prisma.CandidateEvaluationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateEvaluation
+     */
+    omit?: Prisma.CandidateEvaluationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateEvaluationInclude<ExtArgs> | null;
+    /**
+     * Filter which CandidateEvaluation to delete.
+     */
+    where: Prisma.CandidateEvaluationWhereUniqueInput;
+};
+/**
+ * CandidateEvaluation deleteMany
+ */
+export type CandidateEvaluationDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which CandidateEvaluations to delete
+     */
+    where?: Prisma.CandidateEvaluationWhereInput;
+    /**
+     * Limit how many CandidateEvaluations to delete.
+     */
+    limit?: number;
+};
+/**
+ * CandidateEvaluation without action
+ */
+export type CandidateEvaluationDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateEvaluation
+     */
+    select?: Prisma.CandidateEvaluationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateEvaluation
+     */
+    omit?: Prisma.CandidateEvaluationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateEvaluationInclude<ExtArgs> | null;
+};
+//# sourceMappingURL=CandidateEvaluation.d.ts.map

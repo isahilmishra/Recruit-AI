@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js"
+    "build": "echo \"No build step required with tsx\"",
+    "start": "npx tsx src/server.ts"
   },
   "keywords": [],
   "author": "",
