@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 const router = Router();
 
-const registerSchema = z.object({
+export const registerSchema = z.object({
   body: z.object({
     name: z.string().min(2),
     email: z.string().email(),
@@ -26,14 +26,14 @@ const registerSchema = z.object({
   })
 });
 
-const loginSchema = z.object({
+export const loginSchema = z.object({
   body: z.object({
     email: z.string().email(),
     password: z.string(),
   })
 });
 
-const refreshSchema = z.object({
+export const refreshSchema = z.object({
   body: z.object({
     refreshToken: z.string(),
   })
