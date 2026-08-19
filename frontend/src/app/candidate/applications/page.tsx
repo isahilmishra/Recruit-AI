@@ -14,7 +14,7 @@ export default function CandidateApplicationsPage() {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/candidates/applications", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/candidates/applications`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const result = await res.json();

@@ -60,7 +60,7 @@ export default function RecruiterCandidatesPage() {
 
   const fetchApplications = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/recruiters/applications", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recruiters/applications`, {
         headers: {
           ...(token && { Authorization: `Bearer ${token}` })
         }
@@ -134,7 +134,7 @@ export default function RecruiterCandidatesPage() {
 
     // Persist to backend
     try {
-      const response = await fetch(`http://localhost:5000/api/recruiters/applications/${movedApp.id}/status`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recruiters/applications/${movedApp.id}/status`, {
         method: 'PATCH',
         headers: {
           "Content-Type": "application/json",
@@ -157,7 +157,7 @@ export default function RecruiterCandidatesPage() {
     if (!selectedAppForInterview) return;
     setIsScheduling(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/recruiters/applications/${selectedAppForInterview.id}/interviews`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recruiters/applications/${selectedAppForInterview.id}/interviews`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

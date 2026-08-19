@@ -23,7 +23,7 @@ export default function RecruiterSearchPage() {
     setError(null);
     
     try {
-      const response = await fetch("http://localhost:5000/api/recruiters/search", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recruiters/search`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

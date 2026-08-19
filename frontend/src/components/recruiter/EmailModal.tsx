@@ -36,7 +36,7 @@ export function EmailModal({ isOpen, onClose, applicationId, candidateName }: Em
     setIsDrafting(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:5000/api/recruiters/applications/${applicationId}/draft-email`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recruiters/applications/${applicationId}/draft-email`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export function EmailModal({ isOpen, onClose, applicationId, candidateName }: Em
     setIsSending(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:5000/api/recruiters/applications/${applicationId}/send-email`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recruiters/applications/${applicationId}/send-email`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

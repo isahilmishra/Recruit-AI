@@ -27,7 +27,7 @@ export function JobAnalyzer({ onAnalyzeSuccess }: JobAnalyzerProps) {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:5000/api/recruiters/jobs", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recruiters/jobs`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export function JobAnalyzer({ onAnalyzeSuccess }: JobAnalyzerProps) {
       while (status === "PENDING" || status === "PROCESSING") {
         await new Promise(r => setTimeout(r, 2000)); // wait 2 seconds
         
-        const statusRes = await fetch(`http://localhost:5000/api/recruiters/jobs/status/${jobId}`, {
+        const statusRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recruiters/jobs/status/${jobId}`, {
           headers: {
             ...(token && { Authorization: `Bearer ${token}` })
           }

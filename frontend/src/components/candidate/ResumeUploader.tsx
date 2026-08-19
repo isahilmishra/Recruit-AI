@@ -46,7 +46,7 @@ export function ResumeUploader({ onParseSuccess }: ResumeUploaderProps) {
     formData.append("resumeFile", file);
 
     try {
-      const response = await fetch("http://localhost:5000/api/candidates/resume", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/candidates/resume`, {
         method: "POST",
         headers: {
           ...(token && { Authorization: `Bearer ${token}` })
@@ -69,7 +69,7 @@ export function ResumeUploader({ onParseSuccess }: ResumeUploaderProps) {
       while (status === "PENDING" || status === "PROCESSING") {
         await new Promise(r => setTimeout(r, 2000)); // wait 2 seconds
         
-        const statusRes = await fetch(`http://localhost:5000/api/candidates/resume/status/${jobId}`, {
+        const statusRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/candidates/resume/status/${jobId}`, {
           headers: {
             ...(token && { Authorization: `Bearer ${token}` })
           }

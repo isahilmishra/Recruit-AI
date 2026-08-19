@@ -16,7 +16,7 @@ export default function CandidateInterviewsPage() {
   useEffect(() => {
     const fetchInterviews = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/candidates/interviews", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/candidates/interviews`, {
           headers: {
             ...(token && { Authorization: `Bearer ${token}` })
           }

@@ -23,7 +23,7 @@ export function MatchEvaluator({ resumeData, onMatchSuccess }: MatchEvaluatorPro
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/candidates/jobs", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/candidates/jobs`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const result = await response.json();
@@ -44,7 +44,7 @@ export function MatchEvaluator({ resumeData, onMatchSuccess }: MatchEvaluatorPro
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:5000/api/candidates/evaluate", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/candidates/evaluate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
