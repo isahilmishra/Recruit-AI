@@ -22,4 +22,10 @@ export declare const ProcessingStatus: {
     readonly FAILED: 'FAILED';
 };
 export type ProcessingStatus = (typeof ProcessingStatus)[keyof typeof ProcessingStatus];
+export declare const InterviewStatus: {
+    readonly SCHEDULED: 'SCHEDULED';
+    readonly COMPLETED: 'COMPLETED';
+    readonly CANCELED: 'CANCELED';
+};
+export type InterviewStatus = (typeof InterviewStatus)[keyof typeof InterviewStatus];
 //# sourceMappingURL=enums.d.ts.map

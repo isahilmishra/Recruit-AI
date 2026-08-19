@@ -28,4 +28,9 @@ export const ProcessingStatus = {
     COMPLETED: 'COMPLETED',
     FAILED: 'FAILED'
 };
+export const InterviewStatus = {
+    SCHEDULED: 'SCHEDULED',
+    COMPLETED: 'COMPLETED',
+    CANCELED: 'CANCELED'
+};
 //# sourceMappingURL=enums.js.map

@@ -61,4 +61,9 @@ export type CandidateEvaluation = Prisma.CandidateEvaluationModel;
  *
  */
 export type ApplicationStatusHistory = Prisma.ApplicationStatusHistoryModel;
+/**
+ * Model Interview
+ *
+ */
+export type Interview = Prisma.InterviewModel;
 //# sourceMappingURL=client.d.ts.map

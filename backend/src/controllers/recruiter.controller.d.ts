@@ -9,5 +9,7 @@ export declare class RecruiterController {
     static draftEmail(req: Request, res: Response, next: NextFunction): Promise<void>;
     static sendEmail(req: Request, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>> | undefined>;
     static searchCandidates(req: Request, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>> | undefined>;
+    static scheduleInterview(req: Request, res: Response, next: NextFunction): Promise<void>;
+    static getInterviews(req: Request, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>> | undefined>;
 }
 //# sourceMappingURL=recruiter.controller.d.ts.map

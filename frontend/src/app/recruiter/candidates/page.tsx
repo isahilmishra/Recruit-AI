@@ -6,9 +6,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Loader2, UserCircle2, GripVertical, Mail, Calendar } from "lucide-react";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
 import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { EmailModal } from "@/components/recruiter/EmailModal";
-
+import { Skeleton } from "@/components/ui/skeleton";
 import ScheduleInterviewModal from "@/components/recruiter/ScheduleInterviewModal";
 
 // Prisma Enum
@@ -188,31 +188,77 @@ export default function RecruiterCandidatesPage() {
     return "bg-destructive/10 text-destructive border-destructive/20";
   };
 
+  // Skeleton Loader for columns
+  const ColumnSkeleton = () => (
+    <div className="flex gap-4 overflow-x-auto pb-4 px-1 min-h-[calc(100vh-200px)]">
+      {[1, 2, 3, 4, 5].map((i) => (
+        <div key={i} className="flex-shrink-0 w-80 flex flex-col bg-muted/30 rounded-xl border border-border/50">
+          <div className="p-4 border-b border-border/50 bg-muted/50 rounded-t-xl">
+            <Skeleton className="h-5 w-32" />
+          </div>
+          <div className="p-3 space-y-3">
+            {[1, 2, 3].map((j) => (
+              <Card key={j} className="overflow-hidden shadow-sm border-border">
+                <CardContent className="p-4 space-y-3">
+                  <Skeleton className="h-4 w-3/4" />
+                  <Skeleton className="h-3 w-1/2" />
+                  <div className="flex justify-between mt-4">
+                    <div className="flex gap-2">
+                      <Skeleton className="h-6 w-6 rounded-md" />
+                      <Skeleton className="h-6 w-6 rounded-md" />
+                    </div>
+                    <Skeleton className="h-5 w-16 rounded-full" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">Pipeline Board</h1>
-        <p className="text-muted-foreground">Drag and drop candidates across stages.</p>
-      </div>
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h1 className="text-3xl font-extrabold tracking-tight text-foreground">Pipeline Board</h1>
+        <p className="text-muted-foreground mt-1">Drag and drop candidates across stages.</p>
+      </motion.div>
 
       {isLoading ? (
-        <div className="flex justify-center items-center h-64">
-          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-        </div>
+        <ColumnSkeleton />
       ) : error ? (
-        <div className="text-destructive p-4 bg-destructive/10 rounded-md border border-destructive/20">
+        <motion.div 
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} 
+          className="text-destructive p-4 bg-destructive/10 rounded-md border border-destructive/20"
+        >
           {error}
-        </div>
+        </motion.div>
       ) : (
         <DragDropContext onDragEnd={onDragEnd}>
-          <div className="flex gap-4 overflow-x-auto pb-4 px-1 min-h-[calc(100vh-200px)]">
-            {activeColumns.map(status => (
-              <div key={status} className="flex-shrink-0 w-80 flex flex-col bg-muted/30 rounded-xl border border-border/50">
-                <div className="p-4 border-b border-border/50 bg-muted/50 rounded-t-xl flex justify-between items-center">
-                  <h3 className="font-semibold text-sm flex items-center gap-2">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="flex gap-4 overflow-x-auto pb-4 px-1 min-h-[calc(100vh-200px)] custom-scrollbar"
+          >
+            {activeColumns.map((status, index) => (
+              <motion.div 
+                key={status} 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="flex-shrink-0 w-80 flex flex-col bg-muted/20 backdrop-blur-sm rounded-xl border border-border/50 shadow-sm"
+              >
+                <div className="p-4 border-b border-border/50 bg-card rounded-t-xl flex justify-between items-center shadow-sm z-10 relative">
+                  <h3 className="font-bold text-sm tracking-tight text-foreground/80 flex items-center gap-2">
                     {status.replace("_", " ")}
                   </h3>
-                  <Badge variant="secondary" className="rounded-full w-6 h-6 flex items-center justify-center p-0">
+                  <Badge variant="secondary" className="rounded-full w-6 h-6 flex items-center justify-center p-0 font-bold bg-primary/10 text-primary border-primary/20">
                     {columns[status]?.length || 0}
                   </Badge>
                 </div>
@@ -222,7 +268,7 @@ export default function RecruiterCandidatesPage() {
                     <div
                       {...provided.droppableProps}
                       ref={provided.innerRef}
-                      className={`flex-1 p-3 space-y-3 transition-colors ${snapshot.isDraggingOver ? 'bg-primary/5' : ''}`}
+                      className={`flex-1 p-3 space-y-3 transition-colors duration-300 ${snapshot.isDraggingOver ? 'bg-primary/5' : ''}`}
                     >
                       {columns[status]?.map((app, index) => (
                         <Draggable key={app.id} draggableId={app.id} index={index}>
@@ -234,7 +280,7 @@ export default function RecruiterCandidatesPage() {
                               style={{ ...provided.draggableProps.style }}
                             >
                               <Card 
-                                className={`group overflow-hidden shadow-sm hover:shadow-md transition-shadow border-border ${snapshot.isDragging ? 'shadow-xl ring-2 ring-primary/20 rotate-2' : ''}`}
+                                className={`group overflow-hidden transition-all duration-200 border-border/50 ${snapshot.isDragging ? 'shadow-2xl ring-2 ring-primary scale-105 rotate-2 z-50 bg-card' : 'shadow-sm hover:shadow-md hover:border-primary/30 bg-card/80 backdrop-blur-sm'}`}
                               >
                                 <CardContent className="p-4 relative">
                                   <div 
@@ -247,10 +293,10 @@ export default function RecruiterCandidatesPage() {
                                   <div className="pl-4">
                                     <div className="flex justify-between items-start mb-2">
                                       <div>
-                                        <h4 className="font-medium text-foreground text-sm line-clamp-1">
+                                        <h4 className="font-semibold text-foreground text-sm line-clamp-1">
                                           {app.candidate.user.name}
                                         </h4>
-                                        <p className="text-xs text-muted-foreground line-clamp-1">
+                                        <p className="text-xs text-muted-foreground font-medium line-clamp-1 mt-0.5">
                                           {app.job.title}
                                         </p>
                                       </div>
@@ -260,20 +306,20 @@ export default function RecruiterCandidatesPage() {
                                       <div className="flex gap-1.5">
                                         <button 
                                           onClick={() => setSelectedAppForEmail(app)}
-                                          className="text-muted-foreground hover:text-primary transition-colors bg-muted p-1.5 rounded-md"
+                                          className="text-muted-foreground hover:text-primary transition-colors bg-muted hover:bg-primary/10 p-1.5 rounded-md"
                                         >
                                           <Mail className="h-3.5 w-3.5" />
                                         </button>
                                         <button 
                                           onClick={() => setSelectedAppForInterview(app)}
-                                          className="text-muted-foreground hover:text-primary transition-colors bg-muted p-1.5 rounded-md"
+                                          className="text-muted-foreground hover:text-primary transition-colors bg-muted hover:bg-primary/10 p-1.5 rounded-md"
                                         >
                                           <Calendar className="h-3.5 w-3.5" />
                                         </button>
                                       </div>
                                       
-                                      <Badge variant="outline" className={`${getScoreColor(app.evaluation?.overallScore)} px-2 py-0.5 text-xs`}>
-                                        Match: {app.evaluation?.overallScore ? `${app.evaluation.overallScore}/10` : 'N/A'}
+                                      <Badge variant="outline" className={`${getScoreColor(app.evaluation?.overallScore)} px-2 py-0.5 text-xs font-bold`}>
+                                        Match: {app.evaluation?.overallScore ? `${Math.round(app.evaluation.overallScore)}%` : 'N/A'}
                                       </Badge>
                                     </div>
                                   </div>
@@ -287,9 +333,9 @@ export default function RecruiterCandidatesPage() {
                     </div>
                   )}
                 </Droppable>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </DragDropContext>
       )}
 
