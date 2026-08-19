@@ -1,4 +1,26 @@
 import Groq from 'groq-sdk';
+import { pipeline, env } from '@xenova/transformers';
+
+env.useBrowserCache = false;
+
+let embeddingPipeline: any = null;
+export async function getEmbeddingPipeline() {
+  if (!embeddingPipeline) {
+    embeddingPipeline = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+  }
+  return embeddingPipeline;
+}
+
+export async function generateEmbedding(text: string): Promise<number[]> {
+  try {
+    const extractor = await getEmbeddingPipeline();
+    const output = await extractor(text, { pooling: 'mean', normalize: true });
+    return Array.from(output.data) as number[];
+  } catch (error) {
+    console.error("Error generating embedding:", error);
+    throw error;
+  }
+}
 
 let groqClient: Groq;
 const getAi = () => {
@@ -98,5 +120,33 @@ export async function evaluateCandidateMatch(resumeData: any, jobText: string) {
     throw new Error("Failed to evaluate candidate match.");
   }
   
+  return JSON.parse(content);
+}
+
+export async function semanticSearchCandidates(prompt: string, candidatesList: any[]) {
+  const response = await getAi().chat.completions.create({
+    model,
+    messages: [
+      {
+        role: "system",
+        content: `You are an expert HR sourcer. You will receive a list of candidates (in JSON format) and a search query. Your job is to find the candidates that best match the query.
+        Return a valid JSON exactly matching this schema: { "matches": [{ "applicationId": string, "score": number (0-100), "reason": string }] }.
+        Only include candidates that have a score of 50 or higher. Sort the matches from highest score to lowest.
+        Output ONLY valid JSON without any markdown code blocks, backticks, or conversational text.`
+      },
+      {
+        role: "user",
+        content: `Search Query: "${prompt}"\n\nCandidates List:\n${JSON.stringify(candidatesList)}`
+      }
+    ],
+    temperature: 0.1,
+    response_format: { type: "json_object" }
+  });
+
+  const content = response.choices[0]?.message?.content;
+  if (!content) {
+    throw new Error("Failed to perform semantic search.");
+  }
+
   return JSON.parse(content);
 }

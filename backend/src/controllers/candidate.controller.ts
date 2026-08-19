@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../utils/prisma';
 import { AppError } from '../utils/AppError';
 import { parseResume, evaluateCandidateMatch } from '../utils/ai';
+import { resumeQueue } from '../utils/queue';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const pdfParse = require('pdf-parse');
@@ -32,45 +33,61 @@ export class CandidateController {
         throw new AppError('Resume file or text is required', 400);
       }
 
-      // Parse with AI
-      const parsedData = await parseResume(rawText);
-
-      // Find the candidate profile for this user
-      const candidateProfile = await prisma.candidateProfile.findUnique({
-        where: { userId }
+      // Instead of waiting, push to queue
+      const job = await resumeQueue.add('parse-resume', {
+        rawText,
+        userId,
+        originalName: req.file ? req.file.originalname : 'Uploaded_Resume.txt'
       });
 
-      if (!candidateProfile) {
-        throw new AppError('Candidate profile not found', 404);
-      }
-
-      // Save to Database
-      const resume = await prisma.resume.create({
-        data: {
-          candidateId: candidateProfile.id,
-          fileName: req.file ? req.file.originalname : 'Uploaded_Resume.txt',
-          fileUrl: 'local',
-          extractedText: rawText,
-          parsedData: parsedData as any,
-          processingStatus: 'COMPLETED'
-        }
-      });
-
-      // Update candidate profile with extracted skills if needed
-      await prisma.candidateProfile.update({
-        where: { id: candidateProfile.id },
-        data: {
-          skills: parsedData.skills || [],
-          experience: parsedData.experience as any,
-          education: parsedData.education as any
-        }
-      });
-
-      res.status(201).json({
+      res.status(202).json({
         status: 'success',
         data: {
-          resume,
-          parsedData
+          jobId: job.id,
+          message: 'Resume queued for processing'
+        }
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getResumeStatus(req: Request, res: Response, next: NextFunction) {
+    try {
+      const jobId = req.params.jobId as string;
+      const job = await resumeQueue.getJob(jobId);
+
+      if (!job) {
+        throw new AppError('Job not found', 404);
+      }
+
+      const isCompleted = await job.isCompleted();
+      const isFailed = await job.isFailed();
+
+      if (isCompleted) {
+        return res.status(200).json({
+          status: 'success',
+          data: {
+            status: 'COMPLETED',
+            result: job.returnvalue
+          }
+        });
+      }
+
+      if (isFailed) {
+        return res.status(200).json({
+          status: 'success',
+          data: {
+            status: 'FAILED',
+            error: job.failedReason
+          }
+        });
+      }
+
+      return res.status(200).json({
+        status: 'success',
+        data: {
+          status: 'PENDING'
         }
       });
     } catch (error) {
@@ -129,6 +146,19 @@ export class CandidateController {
       // Evaluate match with AI
       const matchData = await evaluateCandidateMatch(resume.parsedData, job.description);
 
+      // Compute semantic similarity using pgvector
+      const resultVector: any = await prisma.$queryRaw`
+        SELECT 1 - ("Resume"."embedding" <=> "Job"."embedding") AS similarity
+        FROM "Resume", "Job"
+        WHERE "Resume".id = ${resume.id}::uuid AND "Job".id = ${job.id}::uuid
+      `;
+      let semanticScore = 0;
+      if (resultVector && resultVector[0] && resultVector[0].similarity != null) {
+        // cosine similarity is -1 to 1. Normalize to 0-100.
+        const sim = resultVector[0].similarity;
+        semanticScore = Math.round(((sim + 1) / 2) * 100);
+      }
+
       // Save Application and Evaluation in a transaction
       const result = await prisma.$transaction(async (tx) => {
         const application = await tx.application.create({
@@ -146,6 +176,7 @@ export class CandidateController {
             jobId: job.id,
             applicationId: application.id,
             overallScore: matchData.overallScore || matchData.skillScore,
+            semanticScore: semanticScore,
             skillScore: matchData.skillScore,
             experienceScore: matchData.experienceScore,
             matchedSkills: matchData.matchedSkills || [],

@@ -210,8 +210,8 @@ export type ResumeWhereInput = {
   processingStatus?: Prisma.EnumProcessingStatusFilter<"Resume"> | $Enums.ProcessingStatus
   createdAt?: Prisma.DateTimeFilter<"Resume"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Resume"> | Date | string
-  candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
   applications?: Prisma.ApplicationListRelationFilter
+  candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
 }
 
 export type ResumeOrderByWithRelationInput = {
@@ -224,8 +224,8 @@ export type ResumeOrderByWithRelationInput = {
   processingStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  candidate?: Prisma.CandidateProfileOrderByWithRelationInput
   applications?: Prisma.ApplicationOrderByRelationAggregateInput
+  candidate?: Prisma.CandidateProfileOrderByWithRelationInput
 }
 
 export type ResumeWhereUniqueInput = Prisma.AtLeast<{
@@ -241,8 +241,8 @@ export type ResumeWhereUniqueInput = Prisma.AtLeast<{
   processingStatus?: Prisma.EnumProcessingStatusFilter<"Resume"> | $Enums.ProcessingStatus
   createdAt?: Prisma.DateTimeFilter<"Resume"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Resume"> | Date | string
-  candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
   applications?: Prisma.ApplicationListRelationFilter
+  candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
 }, "id">
 
 export type ResumeOrderByWithAggregationInput = {
@@ -284,8 +284,8 @@ export type ResumeCreateInput = {
   processingStatus?: $Enums.ProcessingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  candidate: Prisma.CandidateProfileCreateNestedOneWithoutResumesInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutResumeInput
+  candidate: Prisma.CandidateProfileCreateNestedOneWithoutResumesInput
 }
 
 export type ResumeUncheckedCreateInput = {
@@ -310,8 +310,8 @@ export type ResumeUpdateInput = {
   processingStatus?: Prisma.EnumProcessingStatusFieldUpdateOperationsInput | $Enums.ProcessingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  candidate?: Prisma.CandidateProfileUpdateOneRequiredWithoutResumesNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutResumeNestedInput
+  candidate?: Prisma.CandidateProfileUpdateOneRequiredWithoutResumesNestedInput
 }
 
 export type ResumeUncheckedUpdateInput = {
@@ -689,8 +689,8 @@ export type ResumeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   processingStatus?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   applications?: boolean | Prisma.Resume$applicationsArgs<ExtArgs>
+  candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ResumeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["resume"]>
 
@@ -734,8 +734,8 @@ export type ResumeSelectScalar = {
 
 export type ResumeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "candidateId" | "fileName" | "fileUrl" | "extractedText" | "parsedData" | "processingStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["resume"]>
 export type ResumeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   applications?: boolean | Prisma.Resume$applicationsArgs<ExtArgs>
+  candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ResumeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ResumeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -748,8 +748,8 @@ export type ResumeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type $ResumePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Resume"
   objects: {
-    candidate: Prisma.$CandidateProfilePayload<ExtArgs>
     applications: Prisma.$ApplicationPayload<ExtArgs>[]
+    candidate: Prisma.$CandidateProfilePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1155,8 +1155,8 @@ readonly fields: ResumeFieldRefs;
  */
 export interface Prisma__ResumeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  candidate<T extends Prisma.CandidateProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   applications<T extends Prisma.Resume$applicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Resume$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  candidate<T extends Prisma.CandidateProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, Users, Briefcase, Settings, FileText, Send } from 'lucide-react';
+import { LayoutDashboard, Users, Briefcase, Settings, FileText, Send, Search } from 'lucide-react';
 
 interface SidebarProps {
   role: 'recruiter' | 'candidate';
@@ -15,6 +15,7 @@ export function DashboardSidebar({ role }: SidebarProps) {
     { name: 'Overview', href: '/recruiter', icon: LayoutDashboard },
     { name: 'Jobs', href: '/recruiter/jobs', icon: Briefcase },
     { name: 'Candidates', href: '/recruiter/candidates', icon: Users },
+    { name: 'AI Search', href: '/recruiter/search', icon: Search },
     { name: 'Interviews', href: '/recruiter/interviews', icon: FileText },
     { name: 'Emails', href: '/recruiter/emails', icon: Send },
     { name: 'Settings', href: '/recruiter/settings', icon: Settings },

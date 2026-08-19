@@ -190,8 +190,8 @@ export type RecruiterProfileWhereInput = {
   companyRole?: Prisma.StringFilter<"RecruiterProfile"> | string
   createdAt?: Prisma.DateTimeFilter<"RecruiterProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RecruiterProfile"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   jobs?: Prisma.JobListRelationFilter
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type RecruiterProfileOrderByWithRelationInput = {
@@ -201,8 +201,8 @@ export type RecruiterProfileOrderByWithRelationInput = {
   companyRole?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
   jobs?: Prisma.JobOrderByRelationAggregateInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type RecruiterProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -215,8 +215,8 @@ export type RecruiterProfileWhereUniqueInput = Prisma.AtLeast<{
   companyRole?: Prisma.StringFilter<"RecruiterProfile"> | string
   createdAt?: Prisma.DateTimeFilter<"RecruiterProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RecruiterProfile"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   jobs?: Prisma.JobListRelationFilter
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId">
 
 export type RecruiterProfileOrderByWithAggregationInput = {
@@ -249,8 +249,8 @@ export type RecruiterProfileCreateInput = {
   companyRole: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutRecruiterProfileInput
   jobs?: Prisma.JobCreateNestedManyWithoutRecruiterInput
+  user: Prisma.UserCreateNestedOneWithoutRecruiterProfileInput
 }
 
 export type RecruiterProfileUncheckedCreateInput = {
@@ -269,8 +269,8 @@ export type RecruiterProfileUpdateInput = {
   companyRole?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutRecruiterProfileNestedInput
   jobs?: Prisma.JobUpdateManyWithoutRecruiterNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutRecruiterProfileNestedInput
 }
 
 export type RecruiterProfileUncheckedUpdateInput = {
@@ -534,8 +534,8 @@ export type RecruiterProfileSelect<ExtArgs extends runtime.Types.Extensions.Inte
   companyRole?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   jobs?: boolean | Prisma.RecruiterProfile$jobsArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.RecruiterProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["recruiterProfile"]>
 
@@ -570,8 +570,8 @@ export type RecruiterProfileSelectScalar = {
 
 export type RecruiterProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "companyName" | "companyRole" | "createdAt" | "updatedAt", ExtArgs["result"]["recruiterProfile"]>
 export type RecruiterProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   jobs?: boolean | Prisma.RecruiterProfile$jobsArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.RecruiterProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RecruiterProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -584,8 +584,8 @@ export type RecruiterProfileIncludeUpdateManyAndReturn<ExtArgs extends runtime.T
 export type $RecruiterProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "RecruiterProfile"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
     jobs: Prisma.$JobPayload<ExtArgs>[]
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -988,8 +988,8 @@ readonly fields: RecruiterProfileFieldRefs;
  */
 export interface Prisma__RecruiterProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   jobs<T extends Prisma.RecruiterProfile$jobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RecruiterProfile$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

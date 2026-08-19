@@ -11,6 +11,7 @@ import aiRoutes from './routes/ai.routes';
 import candidateRoutes from './routes/candidate.routes';
 import recruiterRoutes from './routes/recruiter.routes';
 import { errorHandler } from './middleware/errorHandler';
+import './workers'; // Initialize BullMQ workers
 
 
 const app: Express = express();

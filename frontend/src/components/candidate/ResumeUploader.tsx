@@ -57,10 +57,38 @@ export function ResumeUploader({ onParseSuccess }: ResumeUploaderProps) {
       const result = await response.json();
 
       if (!response.ok || result.status === 'error') {
-        throw new Error(result.message || "Failed to parse resume.");
+        throw new Error(result.message || "Failed to start resume upload.");
       }
 
-      onParseSuccess(result.data.parsedData || result.data);
+      const jobId = result.data.jobId;
+      
+      // Start polling
+      let status = "PENDING";
+      let parsedData = null;
+      
+      while (status === "PENDING" || status === "PROCESSING") {
+        await new Promise(r => setTimeout(r, 2000)); // wait 2 seconds
+        
+        const statusRes = await fetch(`http://localhost:5000/api/candidates/resume/status/${jobId}`, {
+          headers: {
+            ...(token && { Authorization: `Bearer ${token}` })
+          }
+        });
+        
+        const statusData = await statusRes.json();
+        if (!statusRes.ok || statusData.status === 'error') {
+          throw new Error(statusData.message || "Failed to check status.");
+        }
+        
+        status = statusData.data.status;
+        if (status === "COMPLETED") {
+          parsedData = statusData.data.result.parsedData;
+        } else if (status === "FAILED") {
+          throw new Error(statusData.data.error || "AI processing failed.");
+        }
+      }
+
+      onParseSuccess(parsedData);
     } catch (err: any) {
       setError(err.message || "An unexpected error occurred.");
     } finally {

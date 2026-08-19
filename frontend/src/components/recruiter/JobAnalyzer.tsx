@@ -39,11 +39,38 @@ export function JobAnalyzer({ onAnalyzeSuccess }: JobAnalyzerProps) {
       const result = await response.json();
 
       if (!response.ok || result.status === 'error') {
-        throw new Error(result.message || "Failed to analyze job description.");
+        throw new Error(result.message || "Failed to start job analysis.");
       }
 
-      // result.data contains both job and analyzedData from recruiter controller
-      onAnalyzeSuccess(result.data.analyzedData || result.data);
+      const jobId = result.data.jobId;
+      
+      // Start polling
+      let status = "PENDING";
+      let analyzedData = null;
+      
+      while (status === "PENDING" || status === "PROCESSING") {
+        await new Promise(r => setTimeout(r, 2000)); // wait 2 seconds
+        
+        const statusRes = await fetch(`http://localhost:5000/api/recruiters/jobs/status/${jobId}`, {
+          headers: {
+            ...(token && { Authorization: `Bearer ${token}` })
+          }
+        });
+        
+        const statusData = await statusRes.json();
+        if (!statusRes.ok || statusData.status === 'error') {
+          throw new Error(statusData.message || "Failed to check status.");
+        }
+        
+        status = statusData.data.status;
+        if (status === "COMPLETED") {
+          analyzedData = statusData.data.result.analyzedData;
+        } else if (status === "FAILED") {
+          throw new Error(statusData.data.error || "AI processing failed.");
+        }
+      }
+
+      onAnalyzeSuccess(analyzedData);
     } catch (err: any) {
       setError(err.message || "An unexpected error occurred.");
     } finally {

@@ -7,6 +7,7 @@ import { Loader2, UserCircle2, GripVertical, Mail, Calendar } from "lucide-react
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
+import { EmailModal } from "@/components/recruiter/EmailModal";
 
 // Prisma Enum
 const ApplicationStatusList = [
@@ -51,6 +52,7 @@ export default function RecruiterCandidatesPage() {
   const [columns, setColumns] = useState<Record<ApplicationStatus, Application[]>>({} as any);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedAppForEmail, setSelectedAppForEmail] = useState<Application | null>(null);
 
   useEffect(() => {
     // Initialize empty columns
@@ -229,7 +231,10 @@ export default function RecruiterCandidatesPage() {
                                     
                                     <div className="flex items-center justify-between mt-4">
                                       <div className="flex gap-1.5">
-                                        <button className="text-muted-foreground hover:text-primary transition-colors bg-muted p-1.5 rounded-md">
+                                        <button 
+                                          onClick={() => setSelectedAppForEmail(app)}
+                                          className="text-muted-foreground hover:text-primary transition-colors bg-muted p-1.5 rounded-md"
+                                        >
                                           <Mail className="h-3.5 w-3.5" />
                                         </button>
                                         <button className="text-muted-foreground hover:text-primary transition-colors bg-muted p-1.5 rounded-md">
@@ -256,6 +261,15 @@ export default function RecruiterCandidatesPage() {
             ))}
           </div>
         </DragDropContext>
+      )}
+
+      {selectedAppForEmail && (
+        <EmailModal 
+          isOpen={!!selectedAppForEmail} 
+          onClose={() => setSelectedAppForEmail(null)} 
+          applicationId={selectedAppForEmail.id} 
+          candidateName={selectedAppForEmail.candidate.user.name} 
+        />
       )}
     </div>
   );

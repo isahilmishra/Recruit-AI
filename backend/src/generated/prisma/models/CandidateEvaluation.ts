@@ -284,9 +284,9 @@ export type CandidateEvaluationWhereInput = {
   summary?: Prisma.StringNullableFilter<"CandidateEvaluation"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CandidateEvaluation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CandidateEvaluation"> | Date | string
+  application?: Prisma.XOR<Prisma.ApplicationScalarRelationFilter, Prisma.ApplicationWhereInput>
   candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
   job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>
-  application?: Prisma.XOR<Prisma.ApplicationScalarRelationFilter, Prisma.ApplicationWhereInput>
 }
 
 export type CandidateEvaluationOrderByWithRelationInput = {
@@ -303,9 +303,9 @@ export type CandidateEvaluationOrderByWithRelationInput = {
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  application?: Prisma.ApplicationOrderByWithRelationInput
   candidate?: Prisma.CandidateProfileOrderByWithRelationInput
   job?: Prisma.JobOrderByWithRelationInput
-  application?: Prisma.ApplicationOrderByWithRelationInput
 }
 
 export type CandidateEvaluationWhereUniqueInput = Prisma.AtLeast<{
@@ -325,9 +325,9 @@ export type CandidateEvaluationWhereUniqueInput = Prisma.AtLeast<{
   summary?: Prisma.StringNullableFilter<"CandidateEvaluation"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CandidateEvaluation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CandidateEvaluation"> | Date | string
+  application?: Prisma.XOR<Prisma.ApplicationScalarRelationFilter, Prisma.ApplicationWhereInput>
   candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
   job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>
-  application?: Prisma.XOR<Prisma.ApplicationScalarRelationFilter, Prisma.ApplicationWhereInput>
 }, "id" | "applicationId">
 
 export type CandidateEvaluationOrderByWithAggregationInput = {
@@ -381,9 +381,9 @@ export type CandidateEvaluationCreateInput = {
   summary?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  application: Prisma.ApplicationCreateNestedOneWithoutEvaluationInput
   candidate: Prisma.CandidateProfileCreateNestedOneWithoutEvaluationsInput
   job: Prisma.JobCreateNestedOneWithoutEvaluationsInput
-  application: Prisma.ApplicationCreateNestedOneWithoutEvaluationInput
 }
 
 export type CandidateEvaluationUncheckedCreateInput = {
@@ -413,9 +413,9 @@ export type CandidateEvaluationUpdateInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  application?: Prisma.ApplicationUpdateOneRequiredWithoutEvaluationNestedInput
   candidate?: Prisma.CandidateProfileUpdateOneRequiredWithoutEvaluationsNestedInput
   job?: Prisma.JobUpdateOneRequiredWithoutEvaluationsNestedInput
-  application?: Prisma.ApplicationUpdateOneRequiredWithoutEvaluationNestedInput
 }
 
 export type CandidateEvaluationUncheckedUpdateInput = {
@@ -705,8 +705,8 @@ export type CandidateEvaluationCreateWithoutCandidateInput = {
   summary?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  job: Prisma.JobCreateNestedOneWithoutEvaluationsInput
   application: Prisma.ApplicationCreateNestedOneWithoutEvaluationInput
+  job: Prisma.JobCreateNestedOneWithoutEvaluationsInput
 }
 
 export type CandidateEvaluationUncheckedCreateWithoutCandidateInput = {
@@ -780,8 +780,8 @@ export type CandidateEvaluationCreateWithoutJobInput = {
   summary?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  candidate: Prisma.CandidateProfileCreateNestedOneWithoutEvaluationsInput
   application: Prisma.ApplicationCreateNestedOneWithoutEvaluationInput
+  candidate: Prisma.CandidateProfileCreateNestedOneWithoutEvaluationsInput
 }
 
 export type CandidateEvaluationUncheckedCreateWithoutJobInput = {
@@ -927,8 +927,8 @@ export type CandidateEvaluationUpdateWithoutCandidateInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  job?: Prisma.JobUpdateOneRequiredWithoutEvaluationsNestedInput
   application?: Prisma.ApplicationUpdateOneRequiredWithoutEvaluationNestedInput
+  job?: Prisma.JobUpdateOneRequiredWithoutEvaluationsNestedInput
 }
 
 export type CandidateEvaluationUncheckedUpdateWithoutCandidateInput = {
@@ -987,8 +987,8 @@ export type CandidateEvaluationUpdateWithoutJobInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  candidate?: Prisma.CandidateProfileUpdateOneRequiredWithoutEvaluationsNestedInput
   application?: Prisma.ApplicationUpdateOneRequiredWithoutEvaluationNestedInput
+  candidate?: Prisma.CandidateProfileUpdateOneRequiredWithoutEvaluationsNestedInput
 }
 
 export type CandidateEvaluationUncheckedUpdateWithoutJobInput = {
@@ -1037,9 +1037,9 @@ export type CandidateEvaluationSelect<ExtArgs extends runtime.Types.Extensions.I
   summary?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
-  application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["candidateEvaluation"]>
 
 export type CandidateEvaluationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1056,9 +1056,9 @@ export type CandidateEvaluationSelectCreateManyAndReturn<ExtArgs extends runtime
   summary?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
-  application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["candidateEvaluation"]>
 
 export type CandidateEvaluationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1075,9 +1075,9 @@ export type CandidateEvaluationSelectUpdateManyAndReturn<ExtArgs extends runtime
   summary?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
-  application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["candidateEvaluation"]>
 
 export type CandidateEvaluationSelectScalar = {
@@ -1098,27 +1098,27 @@ export type CandidateEvaluationSelectScalar = {
 
 export type CandidateEvaluationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "candidateId" | "jobId" | "applicationId" | "overallScore" | "semanticScore" | "skillScore" | "experienceScore" | "matchedSkills" | "missingSkills" | "summary" | "createdAt" | "updatedAt", ExtArgs["result"]["candidateEvaluation"]>
 export type CandidateEvaluationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
-  application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>
 }
 export type CandidateEvaluationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
-  application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>
 }
 export type CandidateEvaluationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
-  application?: boolean | Prisma.ApplicationDefaultArgs<ExtArgs>
 }
 
 export type $CandidateEvaluationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CandidateEvaluation"
   objects: {
+    application: Prisma.$ApplicationPayload<ExtArgs>
     candidate: Prisma.$CandidateProfilePayload<ExtArgs>
     job: Prisma.$JobPayload<ExtArgs>
-    application: Prisma.$ApplicationPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1528,9 +1528,9 @@ readonly fields: CandidateEvaluationFieldRefs;
  */
 export interface Prisma__CandidateEvaluationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  application<T extends Prisma.ApplicationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ApplicationDefaultArgs<ExtArgs>>): Prisma.Prisma__ApplicationClient<runtime.Types.Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   candidate<T extends Prisma.CandidateProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   job<T extends Prisma.JobDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobDefaultArgs<ExtArgs>>): Prisma.Prisma__JobClient<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  application<T extends Prisma.ApplicationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ApplicationDefaultArgs<ExtArgs>>): Prisma.Prisma__ApplicationClient<runtime.Types.Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
