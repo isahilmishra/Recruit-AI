@@ -203,6 +203,7 @@ export type ApplicationWhereInput = {
   resume?: Prisma.XOR<Prisma.ResumeNullableScalarRelationFilter, Prisma.ResumeWhereInput> | null
   history?: Prisma.ApplicationStatusHistoryListRelationFilter
   evaluation?: Prisma.XOR<Prisma.CandidateEvaluationNullableScalarRelationFilter, Prisma.CandidateEvaluationWhereInput> | null
+  interview?: Prisma.XOR<Prisma.InterviewNullableScalarRelationFilter, Prisma.InterviewWhereInput> | null
 }
 
 export type ApplicationOrderByWithRelationInput = {
@@ -218,6 +219,7 @@ export type ApplicationOrderByWithRelationInput = {
   resume?: Prisma.ResumeOrderByWithRelationInput
   history?: Prisma.ApplicationStatusHistoryOrderByRelationAggregateInput
   evaluation?: Prisma.CandidateEvaluationOrderByWithRelationInput
+  interview?: Prisma.InterviewOrderByWithRelationInput
 }
 
 export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
@@ -236,6 +238,7 @@ export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
   resume?: Prisma.XOR<Prisma.ResumeNullableScalarRelationFilter, Prisma.ResumeWhereInput> | null
   history?: Prisma.ApplicationStatusHistoryListRelationFilter
   evaluation?: Prisma.XOR<Prisma.CandidateEvaluationNullableScalarRelationFilter, Prisma.CandidateEvaluationWhereInput> | null
+  interview?: Prisma.XOR<Prisma.InterviewNullableScalarRelationFilter, Prisma.InterviewWhereInput> | null
 }, "id">
 
 export type ApplicationOrderByWithAggregationInput = {
@@ -274,6 +277,7 @@ export type ApplicationCreateInput = {
   resume?: Prisma.ResumeCreateNestedOneWithoutApplicationsInput
   history?: Prisma.ApplicationStatusHistoryCreateNestedManyWithoutApplicationInput
   evaluation?: Prisma.CandidateEvaluationCreateNestedOneWithoutApplicationInput
+  interview?: Prisma.InterviewCreateNestedOneWithoutApplicationInput
 }
 
 export type ApplicationUncheckedCreateInput = {
@@ -286,6 +290,7 @@ export type ApplicationUncheckedCreateInput = {
   updatedAt?: Date | string
   history?: Prisma.ApplicationStatusHistoryUncheckedCreateNestedManyWithoutApplicationInput
   evaluation?: Prisma.CandidateEvaluationUncheckedCreateNestedOneWithoutApplicationInput
+  interview?: Prisma.InterviewUncheckedCreateNestedOneWithoutApplicationInput
 }
 
 export type ApplicationUpdateInput = {
@@ -298,6 +303,7 @@ export type ApplicationUpdateInput = {
   resume?: Prisma.ResumeUpdateOneWithoutApplicationsNestedInput
   history?: Prisma.ApplicationStatusHistoryUpdateManyWithoutApplicationNestedInput
   evaluation?: Prisma.CandidateEvaluationUpdateOneWithoutApplicationNestedInput
+  interview?: Prisma.InterviewUpdateOneWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateInput = {
@@ -310,6 +316,7 @@ export type ApplicationUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   history?: Prisma.ApplicationStatusHistoryUncheckedUpdateManyWithoutApplicationNestedInput
   evaluation?: Prisma.CandidateEvaluationUncheckedUpdateOneWithoutApplicationNestedInput
+  interview?: Prisma.InterviewUncheckedUpdateOneWithoutApplicationNestedInput
 }
 
 export type ApplicationCreateManyInput = {
@@ -542,6 +549,20 @@ export type ApplicationUpdateOneRequiredWithoutHistoryNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ApplicationUpdateToOneWithWhereWithoutHistoryInput, Prisma.ApplicationUpdateWithoutHistoryInput>, Prisma.ApplicationUncheckedUpdateWithoutHistoryInput>
 }
 
+export type ApplicationCreateNestedOneWithoutInterviewInput = {
+  create?: Prisma.XOR<Prisma.ApplicationCreateWithoutInterviewInput, Prisma.ApplicationUncheckedCreateWithoutInterviewInput>
+  connectOrCreate?: Prisma.ApplicationCreateOrConnectWithoutInterviewInput
+  connect?: Prisma.ApplicationWhereUniqueInput
+}
+
+export type ApplicationUpdateOneRequiredWithoutInterviewNestedInput = {
+  create?: Prisma.XOR<Prisma.ApplicationCreateWithoutInterviewInput, Prisma.ApplicationUncheckedCreateWithoutInterviewInput>
+  connectOrCreate?: Prisma.ApplicationCreateOrConnectWithoutInterviewInput
+  upsert?: Prisma.ApplicationUpsertWithoutInterviewInput
+  connect?: Prisma.ApplicationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ApplicationUpdateToOneWithWhereWithoutInterviewInput, Prisma.ApplicationUpdateWithoutInterviewInput>, Prisma.ApplicationUncheckedUpdateWithoutInterviewInput>
+}
+
 export type ApplicationCreateWithoutCandidateInput = {
   id?: string
   status?: $Enums.ApplicationStatus
@@ -551,6 +572,7 @@ export type ApplicationCreateWithoutCandidateInput = {
   resume?: Prisma.ResumeCreateNestedOneWithoutApplicationsInput
   history?: Prisma.ApplicationStatusHistoryCreateNestedManyWithoutApplicationInput
   evaluation?: Prisma.CandidateEvaluationCreateNestedOneWithoutApplicationInput
+  interview?: Prisma.InterviewCreateNestedOneWithoutApplicationInput
 }
 
 export type ApplicationUncheckedCreateWithoutCandidateInput = {
@@ -562,6 +584,7 @@ export type ApplicationUncheckedCreateWithoutCandidateInput = {
   updatedAt?: Date | string
   history?: Prisma.ApplicationStatusHistoryUncheckedCreateNestedManyWithoutApplicationInput
   evaluation?: Prisma.CandidateEvaluationUncheckedCreateNestedOneWithoutApplicationInput
+  interview?: Prisma.InterviewUncheckedCreateNestedOneWithoutApplicationInput
 }
 
 export type ApplicationCreateOrConnectWithoutCandidateInput = {
@@ -612,6 +635,7 @@ export type ApplicationCreateWithoutResumeInput = {
   job: Prisma.JobCreateNestedOneWithoutApplicationsInput
   history?: Prisma.ApplicationStatusHistoryCreateNestedManyWithoutApplicationInput
   evaluation?: Prisma.CandidateEvaluationCreateNestedOneWithoutApplicationInput
+  interview?: Prisma.InterviewCreateNestedOneWithoutApplicationInput
 }
 
 export type ApplicationUncheckedCreateWithoutResumeInput = {
@@ -623,6 +647,7 @@ export type ApplicationUncheckedCreateWithoutResumeInput = {
   updatedAt?: Date | string
   history?: Prisma.ApplicationStatusHistoryUncheckedCreateNestedManyWithoutApplicationInput
   evaluation?: Prisma.CandidateEvaluationUncheckedCreateNestedOneWithoutApplicationInput
+  interview?: Prisma.InterviewUncheckedCreateNestedOneWithoutApplicationInput
 }
 
 export type ApplicationCreateOrConnectWithoutResumeInput = {
@@ -660,6 +685,7 @@ export type ApplicationCreateWithoutJobInput = {
   resume?: Prisma.ResumeCreateNestedOneWithoutApplicationsInput
   history?: Prisma.ApplicationStatusHistoryCreateNestedManyWithoutApplicationInput
   evaluation?: Prisma.CandidateEvaluationCreateNestedOneWithoutApplicationInput
+  interview?: Prisma.InterviewCreateNestedOneWithoutApplicationInput
 }
 
 export type ApplicationUncheckedCreateWithoutJobInput = {
@@ -671,6 +697,7 @@ export type ApplicationUncheckedCreateWithoutJobInput = {
   updatedAt?: Date | string
   history?: Prisma.ApplicationStatusHistoryUncheckedCreateNestedManyWithoutApplicationInput
   evaluation?: Prisma.CandidateEvaluationUncheckedCreateNestedOneWithoutApplicationInput
+  interview?: Prisma.InterviewUncheckedCreateNestedOneWithoutApplicationInput
 }
 
 export type ApplicationCreateOrConnectWithoutJobInput = {
@@ -708,6 +735,7 @@ export type ApplicationCreateWithoutEvaluationInput = {
   job: Prisma.JobCreateNestedOneWithoutApplicationsInput
   resume?: Prisma.ResumeCreateNestedOneWithoutApplicationsInput
   history?: Prisma.ApplicationStatusHistoryCreateNestedManyWithoutApplicationInput
+  interview?: Prisma.InterviewCreateNestedOneWithoutApplicationInput
 }
 
 export type ApplicationUncheckedCreateWithoutEvaluationInput = {
@@ -719,6 +747,7 @@ export type ApplicationUncheckedCreateWithoutEvaluationInput = {
   appliedAt?: Date | string
   updatedAt?: Date | string
   history?: Prisma.ApplicationStatusHistoryUncheckedCreateNestedManyWithoutApplicationInput
+  interview?: Prisma.InterviewUncheckedCreateNestedOneWithoutApplicationInput
 }
 
 export type ApplicationCreateOrConnectWithoutEvaluationInput = {
@@ -746,6 +775,7 @@ export type ApplicationUpdateWithoutEvaluationInput = {
   job?: Prisma.JobUpdateOneRequiredWithoutApplicationsNestedInput
   resume?: Prisma.ResumeUpdateOneWithoutApplicationsNestedInput
   history?: Prisma.ApplicationStatusHistoryUpdateManyWithoutApplicationNestedInput
+  interview?: Prisma.InterviewUpdateOneWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateWithoutEvaluationInput = {
@@ -757,6 +787,7 @@ export type ApplicationUncheckedUpdateWithoutEvaluationInput = {
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   history?: Prisma.ApplicationStatusHistoryUncheckedUpdateManyWithoutApplicationNestedInput
+  interview?: Prisma.InterviewUncheckedUpdateOneWithoutApplicationNestedInput
 }
 
 export type ApplicationCreateWithoutHistoryInput = {
@@ -768,6 +799,7 @@ export type ApplicationCreateWithoutHistoryInput = {
   job: Prisma.JobCreateNestedOneWithoutApplicationsInput
   resume?: Prisma.ResumeCreateNestedOneWithoutApplicationsInput
   evaluation?: Prisma.CandidateEvaluationCreateNestedOneWithoutApplicationInput
+  interview?: Prisma.InterviewCreateNestedOneWithoutApplicationInput
 }
 
 export type ApplicationUncheckedCreateWithoutHistoryInput = {
@@ -779,6 +811,7 @@ export type ApplicationUncheckedCreateWithoutHistoryInput = {
   appliedAt?: Date | string
   updatedAt?: Date | string
   evaluation?: Prisma.CandidateEvaluationUncheckedCreateNestedOneWithoutApplicationInput
+  interview?: Prisma.InterviewUncheckedCreateNestedOneWithoutApplicationInput
 }
 
 export type ApplicationCreateOrConnectWithoutHistoryInput = {
@@ -806,6 +839,7 @@ export type ApplicationUpdateWithoutHistoryInput = {
   job?: Prisma.JobUpdateOneRequiredWithoutApplicationsNestedInput
   resume?: Prisma.ResumeUpdateOneWithoutApplicationsNestedInput
   evaluation?: Prisma.CandidateEvaluationUpdateOneWithoutApplicationNestedInput
+  interview?: Prisma.InterviewUpdateOneWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateWithoutHistoryInput = {
@@ -816,6 +850,71 @@ export type ApplicationUncheckedUpdateWithoutHistoryInput = {
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  evaluation?: Prisma.CandidateEvaluationUncheckedUpdateOneWithoutApplicationNestedInput
+  interview?: Prisma.InterviewUncheckedUpdateOneWithoutApplicationNestedInput
+}
+
+export type ApplicationCreateWithoutInterviewInput = {
+  id?: string
+  status?: $Enums.ApplicationStatus
+  appliedAt?: Date | string
+  updatedAt?: Date | string
+  candidate: Prisma.CandidateProfileCreateNestedOneWithoutApplicationsInput
+  job: Prisma.JobCreateNestedOneWithoutApplicationsInput
+  resume?: Prisma.ResumeCreateNestedOneWithoutApplicationsInput
+  history?: Prisma.ApplicationStatusHistoryCreateNestedManyWithoutApplicationInput
+  evaluation?: Prisma.CandidateEvaluationCreateNestedOneWithoutApplicationInput
+}
+
+export type ApplicationUncheckedCreateWithoutInterviewInput = {
+  id?: string
+  candidateId: string
+  jobId: string
+  resumeId?: string | null
+  status?: $Enums.ApplicationStatus
+  appliedAt?: Date | string
+  updatedAt?: Date | string
+  history?: Prisma.ApplicationStatusHistoryUncheckedCreateNestedManyWithoutApplicationInput
+  evaluation?: Prisma.CandidateEvaluationUncheckedCreateNestedOneWithoutApplicationInput
+}
+
+export type ApplicationCreateOrConnectWithoutInterviewInput = {
+  where: Prisma.ApplicationWhereUniqueInput
+  create: Prisma.XOR<Prisma.ApplicationCreateWithoutInterviewInput, Prisma.ApplicationUncheckedCreateWithoutInterviewInput>
+}
+
+export type ApplicationUpsertWithoutInterviewInput = {
+  update: Prisma.XOR<Prisma.ApplicationUpdateWithoutInterviewInput, Prisma.ApplicationUncheckedUpdateWithoutInterviewInput>
+  create: Prisma.XOR<Prisma.ApplicationCreateWithoutInterviewInput, Prisma.ApplicationUncheckedCreateWithoutInterviewInput>
+  where?: Prisma.ApplicationWhereInput
+}
+
+export type ApplicationUpdateToOneWithWhereWithoutInterviewInput = {
+  where?: Prisma.ApplicationWhereInput
+  data: Prisma.XOR<Prisma.ApplicationUpdateWithoutInterviewInput, Prisma.ApplicationUncheckedUpdateWithoutInterviewInput>
+}
+
+export type ApplicationUpdateWithoutInterviewInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+  appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  candidate?: Prisma.CandidateProfileUpdateOneRequiredWithoutApplicationsNestedInput
+  job?: Prisma.JobUpdateOneRequiredWithoutApplicationsNestedInput
+  resume?: Prisma.ResumeUpdateOneWithoutApplicationsNestedInput
+  history?: Prisma.ApplicationStatusHistoryUpdateManyWithoutApplicationNestedInput
+  evaluation?: Prisma.CandidateEvaluationUpdateOneWithoutApplicationNestedInput
+}
+
+export type ApplicationUncheckedUpdateWithoutInterviewInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  resumeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+  appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  history?: Prisma.ApplicationStatusHistoryUncheckedUpdateManyWithoutApplicationNestedInput
   evaluation?: Prisma.CandidateEvaluationUncheckedUpdateOneWithoutApplicationNestedInput
 }
 
@@ -837,6 +936,7 @@ export type ApplicationUpdateWithoutCandidateInput = {
   resume?: Prisma.ResumeUpdateOneWithoutApplicationsNestedInput
   history?: Prisma.ApplicationStatusHistoryUpdateManyWithoutApplicationNestedInput
   evaluation?: Prisma.CandidateEvaluationUpdateOneWithoutApplicationNestedInput
+  interview?: Prisma.InterviewUpdateOneWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateWithoutCandidateInput = {
@@ -848,6 +948,7 @@ export type ApplicationUncheckedUpdateWithoutCandidateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   history?: Prisma.ApplicationStatusHistoryUncheckedUpdateManyWithoutApplicationNestedInput
   evaluation?: Prisma.CandidateEvaluationUncheckedUpdateOneWithoutApplicationNestedInput
+  interview?: Prisma.InterviewUncheckedUpdateOneWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateManyWithoutCandidateInput = {
@@ -877,6 +978,7 @@ export type ApplicationUpdateWithoutResumeInput = {
   job?: Prisma.JobUpdateOneRequiredWithoutApplicationsNestedInput
   history?: Prisma.ApplicationStatusHistoryUpdateManyWithoutApplicationNestedInput
   evaluation?: Prisma.CandidateEvaluationUpdateOneWithoutApplicationNestedInput
+  interview?: Prisma.InterviewUpdateOneWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateWithoutResumeInput = {
@@ -888,6 +990,7 @@ export type ApplicationUncheckedUpdateWithoutResumeInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   history?: Prisma.ApplicationStatusHistoryUncheckedUpdateManyWithoutApplicationNestedInput
   evaluation?: Prisma.CandidateEvaluationUncheckedUpdateOneWithoutApplicationNestedInput
+  interview?: Prisma.InterviewUncheckedUpdateOneWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateManyWithoutResumeInput = {
@@ -917,6 +1020,7 @@ export type ApplicationUpdateWithoutJobInput = {
   resume?: Prisma.ResumeUpdateOneWithoutApplicationsNestedInput
   history?: Prisma.ApplicationStatusHistoryUpdateManyWithoutApplicationNestedInput
   evaluation?: Prisma.CandidateEvaluationUpdateOneWithoutApplicationNestedInput
+  interview?: Prisma.InterviewUpdateOneWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateWithoutJobInput = {
@@ -928,6 +1032,7 @@ export type ApplicationUncheckedUpdateWithoutJobInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   history?: Prisma.ApplicationStatusHistoryUncheckedUpdateManyWithoutApplicationNestedInput
   evaluation?: Prisma.CandidateEvaluationUncheckedUpdateOneWithoutApplicationNestedInput
+  interview?: Prisma.InterviewUncheckedUpdateOneWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateManyWithoutJobInput = {
@@ -983,6 +1088,7 @@ export type ApplicationSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   resume?: boolean | Prisma.Application$resumeArgs<ExtArgs>
   history?: boolean | Prisma.Application$historyArgs<ExtArgs>
   evaluation?: boolean | Prisma.Application$evaluationArgs<ExtArgs>
+  interview?: boolean | Prisma.Application$interviewArgs<ExtArgs>
   _count?: boolean | Prisma.ApplicationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["application"]>
 
@@ -1029,6 +1135,7 @@ export type ApplicationInclude<ExtArgs extends runtime.Types.Extensions.Internal
   resume?: boolean | Prisma.Application$resumeArgs<ExtArgs>
   history?: boolean | Prisma.Application$historyArgs<ExtArgs>
   evaluation?: boolean | Prisma.Application$evaluationArgs<ExtArgs>
+  interview?: boolean | Prisma.Application$interviewArgs<ExtArgs>
   _count?: boolean | Prisma.ApplicationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ApplicationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1050,6 +1157,7 @@ export type $ApplicationPayload<ExtArgs extends runtime.Types.Extensions.Interna
     resume: Prisma.$ResumePayload<ExtArgs> | null
     history: Prisma.$ApplicationStatusHistoryPayload<ExtArgs>[]
     evaluation: Prisma.$CandidateEvaluationPayload<ExtArgs> | null
+    interview: Prisma.$InterviewPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1458,6 +1566,7 @@ export interface Prisma__ApplicationClient<T, Null = never, ExtArgs extends runt
   resume<T extends Prisma.Application$resumeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Application$resumeArgs<ExtArgs>>): Prisma.Prisma__ResumeClient<runtime.Types.Result.GetResult<Prisma.$ResumePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   history<T extends Prisma.Application$historyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Application$historyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApplicationStatusHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   evaluation<T extends Prisma.Application$evaluationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Application$evaluationArgs<ExtArgs>>): Prisma.Prisma__CandidateEvaluationClient<runtime.Types.Result.GetResult<Prisma.$CandidateEvaluationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  interview<T extends Prisma.Application$interviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Application$interviewArgs<ExtArgs>>): Prisma.Prisma__InterviewClient<runtime.Types.Result.GetResult<Prisma.$InterviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1954,6 +2063,25 @@ export type Application$evaluationArgs<ExtArgs extends runtime.Types.Extensions.
    */
   include?: Prisma.CandidateEvaluationInclude<ExtArgs> | null
   where?: Prisma.CandidateEvaluationWhereInput
+}
+
+/**
+ * Application.interview
+ */
+export type Application$interviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Interview
+   */
+  select?: Prisma.InterviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Interview
+   */
+  omit?: Prisma.InterviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InterviewInclude<ExtArgs> | null
+  where?: Prisma.InterviewWhereInput
 }
 
 /**

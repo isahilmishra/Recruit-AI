@@ -15,5 +15,6 @@ router.get('/resume/status/:jobId', CandidateController.getResumeStatus);
 router.get('/jobs', CandidateController.getJobs);
 router.post('/evaluate', CandidateController.applyToJob);
 router.get('/applications', CandidateController.getApplications);
+router.get('/interviews', CandidateController.getInterviews);
 
 export default router;

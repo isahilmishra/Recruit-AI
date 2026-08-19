@@ -8,4 +8,6 @@ const connectionString = `${process.env.DATABASE_URL}`
 const pool = new Pool({ connectionString })
 const adapter = new PrismaPg(pool)
 
+console.log("Re-instantiating PrismaClient in backend...");
+
 export const prisma = new PrismaClient({ adapter });

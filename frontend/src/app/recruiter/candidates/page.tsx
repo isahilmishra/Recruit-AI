@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { EmailModal } from "@/components/recruiter/EmailModal";
 
+import ScheduleInterviewModal from "@/components/recruiter/ScheduleInterviewModal";
+
 // Prisma Enum
 const ApplicationStatusList = [
   "APPLIED",
@@ -53,44 +55,43 @@ export default function RecruiterCandidatesPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedAppForEmail, setSelectedAppForEmail] = useState<Application | null>(null);
+  const [selectedAppForInterview, setSelectedAppForInterview] = useState<Application | null>(null);
+  const [isScheduling, setIsScheduling] = useState(false);
+
+  const fetchApplications = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/recruiters/applications", {
+        headers: {
+          ...(token && { Authorization: `Bearer ${token}` })
+        }
+      });
+      const result = await response.json();
+      if (!response.ok || result.status === 'error') {
+        throw new Error(result.message || "Failed to fetch candidates.");
+      }
+
+      const data: Application[] = result.data;
+      
+      const initialColumns: Record<ApplicationStatus, Application[]> = {} as any;
+      ApplicationStatusList.forEach(status => {
+        initialColumns[status] = [];
+      });
+
+      const grouped = { ...initialColumns };
+      data.forEach(app => {
+        if (grouped[app.status]) {
+          grouped[app.status].push(app);
+        }
+      });
+      setColumns(grouped);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Initialize empty columns
-    const initialColumns: Record<ApplicationStatus, Application[]> = {} as any;
-    ApplicationStatusList.forEach(status => {
-      initialColumns[status] = [];
-    });
-    setColumns(initialColumns);
-
-    const fetchApplications = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/api/recruiters/applications", {
-          headers: {
-            ...(token && { Authorization: `Bearer ${token}` })
-          }
-        });
-        const result = await response.json();
-        if (!response.ok || result.status === 'error') {
-          throw new Error(result.message || "Failed to fetch candidates.");
-        }
-
-        const data: Application[] = result.data;
-        
-        // Group by status
-        const grouped = { ...initialColumns };
-        data.forEach(app => {
-          if (grouped[app.status]) {
-            grouped[app.status].push(app);
-          }
-        });
-        setColumns(grouped);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     if (token) {
       fetchApplications();
     }
@@ -149,6 +150,32 @@ export default function RecruiterCandidatesPage() {
     } catch (error) {
       console.error("Failed to update status:", error);
       // Ideally revert the optimistic update here
+    }
+  };
+
+  const handleScheduleInterview = async (data: any) => {
+    if (!selectedAppForInterview) return;
+    setIsScheduling(true);
+    try {
+      const res = await fetch(`http://localhost:5000/api/recruiters/applications/${selectedAppForInterview.id}/interviews`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          ...(token && { Authorization: `Bearer ${token}` })
+        },
+        body: JSON.stringify(data)
+      });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.message);
+      
+      // Successfully scheduled, now refresh the board to show it moved to INTERVIEW column
+      await fetchApplications();
+      setSelectedAppForInterview(null);
+    } catch (error) {
+      console.error(error);
+      alert('Failed to schedule interview');
+    } finally {
+      setIsScheduling(false);
     }
   };
 
@@ -237,7 +264,10 @@ export default function RecruiterCandidatesPage() {
                                         >
                                           <Mail className="h-3.5 w-3.5" />
                                         </button>
-                                        <button className="text-muted-foreground hover:text-primary transition-colors bg-muted p-1.5 rounded-md">
+                                        <button 
+                                          onClick={() => setSelectedAppForInterview(app)}
+                                          className="text-muted-foreground hover:text-primary transition-colors bg-muted p-1.5 rounded-md"
+                                        >
                                           <Calendar className="h-3.5 w-3.5" />
                                         </button>
                                       </div>
@@ -269,6 +299,15 @@ export default function RecruiterCandidatesPage() {
           onClose={() => setSelectedAppForEmail(null)} 
           applicationId={selectedAppForEmail.id} 
           candidateName={selectedAppForEmail.candidate.user.name} 
+        />
+      )}
+
+      {selectedAppForInterview && (
+        <ScheduleInterviewModal
+          isOpen={!!selectedAppForInterview}
+          onClose={() => setSelectedAppForInterview(null)}
+          onSubmit={handleScheduleInterview}
+          isLoading={isScheduling}
         />
       )}
     </div>

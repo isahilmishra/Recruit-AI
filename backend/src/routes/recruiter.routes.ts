@@ -17,6 +17,10 @@ router.patch('/applications/:id/status', RecruiterController.updateApplicationSt
 router.post('/applications/:id/draft-email', RecruiterController.draftEmail);
 router.post('/applications/:id/send-email', RecruiterController.sendEmail);
 
+// Interviews
+router.post('/applications/:id/interviews', RecruiterController.scheduleInterview);
+router.get('/interviews', RecruiterController.getInterviews);
+
 router.post('/search', RecruiterController.searchCandidates);
 
 export default router;

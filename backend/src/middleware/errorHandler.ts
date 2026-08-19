@@ -11,6 +11,10 @@ export const errorHandler = (
   let status = 'error';
   let message = err.message || 'Internal server error';
 
+  if (!(err instanceof AppError) || err.statusCode === 500) {
+    console.error('🔥 ERROR: ', err);
+  }
+
   if (err instanceof AppError) {
     statusCode = err.statusCode;
     status = err.status;

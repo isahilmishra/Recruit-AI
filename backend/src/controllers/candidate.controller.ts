@@ -148,9 +148,9 @@ export class CandidateController {
 
       // Compute semantic similarity using pgvector
       const resultVector: any = await prisma.$queryRaw`
-        SELECT 1 - ("Resume"."embedding" <=> "Job"."embedding") AS similarity
+        SELECT 1 - ("Resume"."embedding"::vector <=> "Job"."embedding"::vector) AS similarity
         FROM "Resume", "Job"
-        WHERE "Resume".id = ${resume.id}::uuid AND "Job".id = ${job.id}::uuid
+        WHERE "Resume".id = ${resume.id} AND "Job".id = ${job.id}
       `;
       let semanticScore = 0;
       if (resultVector && resultVector[0] && resultVector[0].similarity != null) {
@@ -222,6 +222,34 @@ export class CandidateController {
       });
 
       res.status(200).json({ status: 'success', data: applications });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getInterviews(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user?.userId;
+      if (!userId) throw new AppError('Unauthorized', 401);
+
+      const candidateProfile = await prisma.candidateProfile.findUnique({
+        where: { userId }
+      });
+
+      if (!candidateProfile) {
+        return res.status(200).json({ status: 'success', data: [] });
+      }
+
+      const interviews = await prisma.interview.findMany({
+        where: { candidateId: candidateProfile.id },
+        include: {
+          recruiter: { include: { user: { select: { name: true, email: true } } } },
+          application: { include: { job: { select: { title: true, company: true } } } }
+        },
+        orderBy: { scheduledAt: 'asc' }
+      });
+
+      res.status(200).json({ status: 'success', data: interviews });
     } catch (error) {
       next(error);
     }

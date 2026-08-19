@@ -24,6 +24,7 @@ export function DashboardSidebar({ role }: SidebarProps) {
   const candidateLinks = [
     { name: 'Dashboard', href: '/candidate', icon: LayoutDashboard },
     { name: 'My Applications', href: '/candidate/applications', icon: Briefcase },
+    { name: 'Interviews', href: '/candidate/interviews', icon: FileText },
     { name: 'Resume', href: '/candidate/resume', icon: FileText },
     { name: 'Settings', href: '/candidate/settings', icon: Settings },
   ];

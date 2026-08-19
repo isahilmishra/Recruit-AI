@@ -411,4 +411,99 @@ export class RecruiterController {
       next(error);
     }
   }
+
+  static async scheduleInterview(req: Request, res: Response, next: NextFunction) {
+    try {
+      const applicationId = req.params.id as string;
+      const { scheduledAt, duration, meetingLink, notes } = req.body;
+      const userId = req.user?.userId;
+
+      if (!userId) throw new AppError('Unauthorized', 401);
+      if (!scheduledAt) throw new AppError('Scheduled time is required', 400);
+
+      const recruiterProfile = await prisma.recruiterProfile.findUnique({
+        where: { userId }
+      });
+
+      if (!recruiterProfile) throw new AppError('Recruiter profile not found', 404);
+
+      const application = await prisma.application.findUnique({
+        where: { id: applicationId },
+        include: { job: true, candidate: { include: { user: true } } }
+      });
+
+      if (!application) throw new AppError('Application not found', 404);
+      if (application.job.recruiterId !== recruiterProfile.id) {
+        throw new AppError('Forbidden. You do not own this job.', 403);
+      }
+
+      const interview = await prisma.$transaction(async (tx) => {
+        // Upsert interview (in case one already exists for this application)
+        const intv = await tx.interview.upsert({
+          where: { applicationId },
+          update: { scheduledAt: new Date(scheduledAt), duration, meetingLink, notes, status: 'SCHEDULED' },
+          create: {
+            applicationId,
+            recruiterId: recruiterProfile.id,
+            candidateId: application.candidateId,
+            scheduledAt: new Date(scheduledAt),
+            duration,
+            meetingLink,
+            notes,
+            status: 'SCHEDULED'
+          }
+        });
+
+        // Update application status to INTERVIEW
+        await tx.application.update({
+          where: { id: applicationId },
+          data: { status: 'INTERVIEW' }
+        });
+
+        // Log status change
+        await tx.applicationStatusHistory.create({
+          data: {
+            applicationId,
+            oldStatus: application.status,
+            newStatus: 'INTERVIEW',
+            changedBy: userId
+          }
+        });
+
+        return intv;
+      });
+
+      res.status(200).json({ status: 'success', data: interview });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getInterviews(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user?.userId;
+      if (!userId) throw new AppError('Unauthorized', 401);
+
+      const recruiterProfile = await prisma.recruiterProfile.findUnique({
+        where: { userId }
+      });
+
+      if (!recruiterProfile) {
+        return res.status(200).json({ status: 'success', data: [] });
+      }
+
+      const interviews = await prisma.interview.findMany({
+        where: { recruiterId: recruiterProfile.id },
+        include: {
+          candidate: { include: { user: { select: { name: true, email: true } } } },
+          application: { include: { job: { select: { title: true, company: true } } } }
+        },
+        orderBy: { scheduledAt: 'asc' }
+      });
+
+      res.status(200).json({ status: 'success', data: interviews });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

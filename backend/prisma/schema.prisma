@@ -29,6 +29,7 @@ model RecruiterProfile {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   jobs        Job[]
+  interviews  Interview[]
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
@@ -47,6 +48,7 @@ model CandidateProfile {
   evaluations  CandidateEvaluation[]
   user         User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
   resumes      Resume[]
+  interviews   Interview[]
 }
 
 model Resume {
@@ -99,6 +101,7 @@ model Application {
   resume      Resume?                    @relation(fields: [resumeId], references: [id])
   history     ApplicationStatusHistory[]
   evaluation  CandidateEvaluation?
+  interview   Interview?
 }
 
 model CandidateEvaluation {
@@ -152,4 +155,28 @@ enum ProcessingStatus {
   PROCESSING
   COMPLETED
   FAILED
+}
+
+model Interview {
+  id            String          @id @default(uuid())
+  applicationId String          @unique
+  recruiterId   String
+  candidateId   String
+  scheduledAt   DateTime
+  duration      Int             @default(60)
+  meetingLink   String?
+  notes         String?
+  status        InterviewStatus @default(SCHEDULED)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  application   Application      @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  recruiter     RecruiterProfile @relation(fields: [recruiterId], references: [id])
+  candidate     CandidateProfile @relation(fields: [candidateId], references: [id])
+}
+
+enum InterviewStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELED
 }
